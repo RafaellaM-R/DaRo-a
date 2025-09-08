@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-image: url(https://i.pinimg.com/1200x/e7/1a/25/e71a25d82e39cf9b377b904333c1ff92.jpg);
+      margin: 0;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* overlay branco translúcido */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(176, 176, 176, 0.432);
+      z-index: -1;
+    }
+
+    header {
+      background-color: #00000081;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #000000;
+    }
+
+    header img { width: 100px; }
+
+    #titulo {
+      height: 150px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+    }
+
+    #titulo h1 {
+      margin: 0;
+      font-family: "Merienda", cursive;
+      font-weight: 600;
+    }
+    .box button{ background-color: #000; border-radius: 12px; color: #fff; }
+    
+    #titulo p {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    #lista { list-style: none; display: flex; padding: 0; margin: 0; }
+    #lista li { margin: 0 13px; }
+
+    header li > a {
+      text-decoration: none;
+      color: rgb(40, 61, 14);
+      background-color: rgba(255, 255, 255, 0.529);
+      padding: 6px;
+      border-radius: 12px;
+    }
+
+    .btn-catalogo {
+      background-color: rgb(240, 241, 239);
+      border-radius: 5px;
+      padding: 7px 15px;
+      color: rgb(55, 65, 61);
+      text-decoration: none;
+    }
+
+    #search-container { display: flex; align-items: center; gap: 10px; }
+    .material-icons { font-size: 28px; color: rgb(251, 253, 250); cursor: pointer; }
+
+    /* Search input */
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #search-input {
+      width: 0;
+      opacity: 0;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #search-input.active {
+      width: 200px;
+      opacity: 1;
+    }
+
+    h2 { border-bottom: 1px solid black; padding-bottom: 5px; margin: 20px; }
+
+    #container-flex {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #caixa {
+      flex: 2;
+      min-width: 300px;
+      max-width: 700px;
+      border-radius: 12px;
+    }
+
+    .box {
+      border-bottom: 1px solid black;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      background-color: #00000081;
+      border-radius: 5px;
+    }
+
+    .box:last-child { border-bottom: none; }
+
+    .box img {
+      width: 100px;
+      height: auto;
+      display: block;
+      border: 1px solid black;
+    }
+
+    .box h5, .box p { margin: 0; color: white; }
+    .box button { margin: 5px; padding: 5px 10px; cursor: pointer; }
+
+    .box button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgb(133, 169, 133);
+    }
+
+    .quantidade { display: inline-block; min-width: 20px; text-align: center; font-weight: bold; }
+
+    #lado-direito { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+    #outraCaixa {
+      border: 1px solid black;
+      padding: 10px;
+      height: 340px;
+      border-radius: 12px;
+      background-color: #00000081;
+    }
+
+    #outraCaixa h5 {
+      margin: 0 0 10px;
+      border-bottom: 1px solid black;
+      padding-bottom: 5px;
+      color: white;
+    }
+
+    #outraCaixa p { margin: 5px 0; color: #d2cece; padding: 7px; }
+
+    #outraCaixa button {
+      padding: 8px 12px;
+      border-radius: 12px;
+      background-color: rgb(59, 138, 79);
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #OUTRAOUTRACAIXA {
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 12px;
+      background-color: #00000081;
+    }
+
+    #OUTRAOUTRACAIXA p { margin: 0 0 5px; color: #ebe7e7; }
+    #OUTRAOUTRACAIXA input { margin-right: 5px; }
+
+    #OUTRAOUTRACAIXA button {
+      color: #fff;
+      background-color: #333;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #caixaa { border-bottom: 1px solid black; padding-bottom: 12px; }
+
+    #estatisticas {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background-color: #00000081;
+    }
+
+    #estatisticas h4, #estatisticas p {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 5px;
+      color: white;
+    }
+
+    a { color: #1c31197d; }
+    a:hover { color: #1131077d; }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
+      color: white;
+    }
+
+    .social a { color: white; font-size: 22px; margin: 0 10px; text-decoration: none; }
+    .social a:hover { color: #ff9900; }
+
+    .logo img { width: 80px; }
+
+    .links ul {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 10px 40px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .links ul li { margin-bottom: 8px; }
+
+    footer { background-color: #00000043; width: 100%; }
+
+    .CardInformações {
+      background-color: #00000081;
+      border-radius: 12px;
+      width: 400px;
+      height: 100px;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    #Junçaodecards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+
+    #botao button:hover{
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgb(133, 169, 133);}
+
+    h6 {
+      font-size: 24px;
+      border-bottom: 1px solid black;
+      margin: 0;
+      padding: 10px 0;
+      color: rgb(0, 0, 0);
+    }
+
+    #botao {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    #botao button {
+      padding: 12px;
+      background-color: #333;
+      color: #ddd;
+      border-radius: 56px;
+      width: 150px;
+      border: none;
+      cursor: pointer;
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .CardInformações img { width: 90px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="/imagens//ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div>
+      <ul id="lista">
+        <li><a href="Projeto_paginaInicial.html">Home</a></li>
+         <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html">Cadastrar</a></li>
+        
+      </ul>
+    </div>
+    <div id="search-container">
+      <span id="search-btn" class="material-icons search-btn">search</span>
+      <input type="text" id="search-input" placeholder="Pesquisar...">
+      <span class="material-icons"><a href='carrinho.html'>shopping_cart</a></span>
+    </div>
+  </header>
+
+  <div id="titulo">
+    <h1>Shopping Cart</h1>
+    <p>home / shopping cart</p>
+  </div>
+
+  <h2>Meu carrinho</h2>
+  <div id="container-flex">
+    <div id="caixa">
+      <p id="caixaa">meu carrinho (3)</p>
+
+      <div class="box">
+        <img src="imagem/produto/queijo.png" alt="Produto 1">
+        <h5>Produto 1</h5>
+        <p>Preço: R$ 10,00</p>
+        <button class="menos">-</button>
+        <span class="quantidade">1</span>
+        <button class="mais">+</button>
+      </div>
+
+      <div class="box">
+        <img src="imagem/produto/queijo.png" alt="Produto 2">
+        <h5>Produto 2</h5>
+        <p>Preço: R$ 15,00</p>
+        <button class="menos">-</button>
+        <span class="quantidade">1</span>
+        <button class="mais">+</button>
+      </div>
+
+      <div class="box">
+        <img src="imagem/produto/queijo.png" alt="Produto 3">
+        <h5>Produto 3</h5>
+        <p>Preço: R$ 20,00</p>
+        <button class="menos">-</button>
+        <span class="quantidade">1</span>
+        <button class="mais">+</button>
+      </div>
+
+      <!-- Estatísticas -->
+      <div id="estatisticas">
+        <h4>📊 Dados estatísticos</h4>
+        <p>Valor total do carrinho: <span id="valor-total">R$ 00,00</span></p>
+        <p>Total de produtos: <span id="total-produtos">3</span></p>
+        <p>Valor médio por produto: <span id="media-produto">R$ 00,00</span></p>
+        <p>Maior valor do carrinho: <span id="maior-produto">R$ 00,00</span></p>
+      </div>
+      <a href="#">limpar o carrinho</a>
+    </div>
+
+    <div id="lado-direito">
+      <div id="outraCaixa">
+        <h5>Order Summary</h5>
+        <p>Itens</p>
+        <p>Sub Total</p>
+        <p>Shipping</p>
+        <p>Taxes</p>
+        <p>Desconto do cupom</p>
+        <div id="total">
+          <p>Total</p>
+          <button>Processo de checagem</button>
+        </div>
+      </div>
+
+      <div id="OUTRAOUTRACAIXA">
+        <p>Cupons</p>
+        <input type="text">
+        <button>Aplique Agora</button>
+      </div>
+
+      <h6>Frequência de entrega</h6>
+      <div id="botao">
+        <button>Semanal</button>
+        <button>Quinzenal</button>
+        <button>Mensal</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="Junçaodecards">
+    <div class="CardInformações">
+      <img src="imagens/caixa.png">
+      <div>
+        <h4>Frete grátis</h4>
+        <p>Frete grátis para pedidos acima de R$180,00</p>
+      </div>
+    </div>
+    <div class="CardInformações">
+      <img src="imagens/outracaixa.png">
+      <div>
+        <h4>Pagamento flexível</h4>
+        <p>Várias opções de pagamento seguras</p>
+      </div>
+    </div>
+    <div class="CardInformações">
+      <img src="imagens/apoio.png">
+      <div>
+        <h4>24x7</h4>
+        <p>Nós ajudamos online todos os dias</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="logo">
+        <img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo">
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>Qualidade que você sente no primeiro pedaço</p>
+      </div>
+
+      <div class="links">
+        <ul>
+          <li><a href="sobre.html">Sobre nós</a></li>
+          <li>Contato</li>
+          <li>Política de Privacidade</li>
+          <li>Termos de Uso</li>
+          <li>Ajuda</li>
+          <li>Serviços</li>
+          <li>Blog</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    
+        // Botão de busca
+    const btn = document.getElementById("search-btn");
+    const input = document.getElementById("search-input");
+    btn.addEventListener("click", () => {
+      input.classList.toggle("active");
+      input.focus();
+    });
+    
+    function atualizarEstatisticas() {
+      const boxes = document.querySelectorAll(".box");
+      let total = 0;
+      let valores = [];
+
+      boxes.forEach(box => {
+        let quantidade = parseInt(box.querySelector(".quantidade").textContent);
+        let precoTexto = box.querySelector("p").textContent.replace("Preço: R$ ", "").replace(",", ".");
+        let preco = parseFloat(precoTexto) || 0;
+
+        total += quantidade;
+        valores.push(preco * quantidade);
+      });
+
+      let soma = valores.reduce((a, b) => a + b, 0);
+
+      document.getElementById("total-produtos").textContent = total;
+      document.getElementById("media-produto").textContent = "R$ " +
+        (valores.length && total > 0 ? (soma / total).toFixed(2) : "0,00");
+      document.getElementById("maior-produto").textContent = "R$ " +
+        (valores.length ? Math.max(...valores).toFixed(2) : "0,00");
+      document.getElementById("valor-total").textContent = "R$ " + soma.toFixed(2);
+    }
+
+    const botoesMais = document.querySelectorAll(".mais");
+    const botoesMenos = document.querySelectorAll(".menos");
+
+    atualizarEstatisticas();
+
+    botoesMais.forEach(botao => {
+      botao.addEventListener("click", () => {
+        let quantidade = botao.previousElementSibling;
+        let valor = parseInt(quantidade.textContent);
+        quantidade.textContent = valor + 1;
+        atualizarEstatisticas();
+      });
+    });
+
+    botoesMenos.forEach(botao => {
+      botao.addEventListener("click", () => {
+        let quantidade = botao.nextElementSibling;
+        let valor = parseInt(quantidade.textContent);
+        if (valor > 1) {
+          quantidade.textContent = valor - 1;
+          atualizarEstatisticas();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

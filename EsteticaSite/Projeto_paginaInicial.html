@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DaRoça</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-image: url(https://i.pinimg.com/736x/c7/31/56/c731567740ba3e72f1fc2e2d18eb75ad.jpg);
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Header */
+    header {
+      background-color: #0000008a;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #lista { list-style: none; display: flex; padding: 0; margin: 0; }
+    #lista li { margin: 0 13px; font-family: Verdana, Geneva, Tahoma, sans-serif; }
+    header li > a {
+      text-decoration: none;
+      color: rgb(40, 61, 14);
+      background-color: rgba(255, 255, 255, 0.529);
+      padding: 6px;
+      border-radius: 12px;
+    }
+    header img { width: 100px; }
+    .btn-catalogo {
+      background-color: rgb(240, 241, 239);
+      border-radius: 5px;
+      padding: 7px 15px;
+      color: rgb(55, 65, 61);
+      text-decoration: none;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    #search-container { display: flex; align-items: center; gap: 10px; }
+    .material-icons { font-size: 28px; color: rgb(251, 253, 250); cursor: pointer; }
+
+    /* Search input */
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #search-input {
+      width: 0;
+      opacity: 0;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #search-input.active {
+      width: 200px;
+      opacity: 1;
+    }
+
+    /* Sessão Principal */
+    #sla {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 40px;
+      flex-wrap: nowrap;
+    }
+    #texto { display: flex; flex-direction: column; flex: 1; }
+    #texto h1 { font-family: "Merienda", cursive; font-weight: 600; }
+    .descricao { font-style: italic; font-weight: 300; font-size: 30px; color: white; }
+    #botao button {
+      width: 200px;
+      height: 50px;
+      background-color: rgb(98, 19, 17);
+      color: white;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #botao { width: 70px; }
+    #botao:hover { transform: scale(1.05); }
+
+    /* Cards */
+    #cards { display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+    .cards {
+      flex: 1;
+      min-width: 250px;
+      max-width: 300px;
+      background-color: rgba(240, 240, 240, 0.4);
+      border-radius: 10px;
+      padding: 20px;
+      font-style: italic;
+      font-size: 16px;
+      color: #333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cards:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgb(133, 169, 133);
+    }
+
+    /* Imagem tomates */
+    #imagem { position: relative; max-width: 500px; margin: 0; flex: 1; }
+    #imagem img { width: 100%; height: auto; border-radius: 10px; display: block; }
+
+    /* Retângulo */
+    #retangulo {
+      width: 90%;
+      margin: 20px auto;
+      background-color: rgba(0, 0, 0, 0.605);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+    }
+
+    #retangulos {
+      width: 90%;
+      margin: 20px auto;
+      background-color: #00000090;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    #retangulo h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 50px;
+      color: #fffcfc;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* Caixa de categorias */
+    #caixa {
+      display: flex;
+      border-radius: 12px;
+      background-color: #3a2b0c61;
+      padding: 20px;
+      gap: 20px;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .box {
+      width: 400px;
+      background-color: rgba(115, 108, 85, 0.623);
+      border-radius: 11px;
+      padding: 10px;
+      border: 3px solid white;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .box img {
+      width: 200px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12%;
+      margin-top: 10px;
+    }
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgb(133, 169, 133);
+    }
+
+    h3 {
+      font-size: 60px;
+      color: rgb(133, 169, 133);
+      border-bottom: 3px solid rgb(0, 0, 0);
+      -webkit-text-stroke: 2px rgb(0, 0, 0);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.858);
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    h4 { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 23px; }
+    p { font-style: italic; font-size: 15px; margin-bottom: 1px; color: white; }
+
+    .botoes_redondos, .botoes_redondoss {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      background-color: rgb(112, 152, 77);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      z-index: 1;
+    }
+    .botoes_redondos { left: 0; }
+    .botoes_redondoss { right: 0; }
+
+    #caixa-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1080px;
+      margin: 0 auto;
+    }
+
+    .botaozinho {
+      width: 100px;
+      height: 45px;
+      background-color: rgb(112, 152, 77);
+      color: white;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    #redes_sociais {
+      border-top: 1px solid rgb(50, 81, 50);
+      margin: 80px;
+      display: flex;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
+      color: white;
+    }
+
+    .links ul {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 10px 40px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .links ul li { margin-bottom: 8px; }
+
+    .logo img { width: 80px; }
+
+    .social a {
+      color: white;
+      font-size: 22px;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .social a:hover { color: #ff9900; }
+
+    a { text-decoration: none; color: white; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div>
+      <ul id="lista">
+        <li><a href="Projeto_paginaInicial.html">Home</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html">Cadastrar</a></li>
+        <li><a href="#catalogooo" class="btn-catalogo">Catálogo</a></li>
+      </ul>
+    </div>
+    <div id="search-container">
+      <span id="search-btn" class="material-icons search-btn">search</span>
+      <input type="text" id="search-input" placeholder="Pesquisar...">
+      <span class="material-icons"><a href="carrinho.html">shopping_cart</a></span>
+    </div>
+  </header>
+
+  <div id="retangulo">
+    <div id="sla">
+      <div id="texto">
+        <h1>Alimentos <span style="color:rgb(111, 139, 77);">naturais</span> que tornam momentos <span style="color:rgb(122, 101, 45);">especiais</span> ainda mais <span style="color:rgb(86, 21, 13);">saudáveis</span></h1>
+        <p class="descricao">Culinária simples, nutritiva e feita com alimentos<br> fresquinhos que encantam o paladar.</p>
+        <div id="botao"><button><a href="cadastro.html">Começa Já</a></button></div>
+        <div id="cards">
+          <div class="cards">Levamos o frescor da horta até você! Monte sua cesta com produtos naturais e receba em casa, de forma prática e no seu ritmo: semanal, quinzenal ou mensal.</div>
+          <div class="cards">A DaRoça oferece cestas de alimentos frescos, preparados com cuidado e entregues em veículos climatizados. Você escolhe os itens, define a frequência e nós cuidamos do resto.</div>
+        </div>
+      </div>
+      <div id="imagem">
+        <img src="/imagens/tomates.png" alt="Imagem de comida" style="width: 680px; height: 500px;">
+      </div>
+    </div>
+  </div>
+
+  <div id="retangulos">
+    <h3 id="catalogooo"> -- Catálogo --</h3>
+    <div id="caixa-container">
+      <button class="botoes_redondos" id="prev">&#60;</button>
+      <div id="caixa">
+        <div class="box">
+          <img src="imagem/produto/caixa_vegetais.png">
+          <h4>Legumes</h4>
+          <p>Deixe sua refeição mais colorida e saudável!</p>
+          <button class="botaozinho"><a href="legumes.html">Clique Aqui!</a></button>
+        </div>
+        <div class="box">
+          <img src="imagem/produto/Frutas.webp">
+          <h4>Frutas</h4>
+          <p>Procurando frutas fresquinhas?</p>
+          <button class="botaozinho"><a href="Projeto_paginaProduto.html">Clique Aqui!</a></button>
+        </div>
+        <div class="box">
+          <img src="imagem/produto/laticineos_imagem_pao.webp">
+          <h4>Laticínios</h4>
+          <p>Procurando queijos, iogurtes e outros laticínios fresquinhos?</p>
+          <button class="botaozinho"><a href="lactineos.html">Clique Aqui!</a></button>
+        </div>
+        <div class="box">
+          <img src="/imagens/saladaaaa.png">
+          <h4>Receitas</h4>
+          <p>Receitas ótimas para seu paladar.</p>
+          <button class="botaozinho"><a href="receitas.html">Clique Aqui!</a></button>
+        </div>
+      </div>
+      <button class="botoes_redondoss" id="next">&#62;</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="logo">
+        <img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo">
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>Qualidade que você sente no primeiro pedaço</p>
+      </div>
+      <div class="links">
+        <ul>
+          <li><a href="sobre.html">Sobre nós</a></li>
+          <li>Contato</li>
+          <li>Política de Privacidade</li>
+          <li>Termos de Uso</li>
+          <li>Ajuda</li>
+          <li>Serviços</li>
+          <li>Blog</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Botão de busca
+    const btn = document.getElementById("search-btn");
+    const input = document.getElementById("search-input");
+    btn.addEventListener("click", () => {
+      input.classList.toggle("active");
+      input.focus();
+    });
+
+    // Carrossel
+    const caixa = document.getElementById('caixa');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const box = document.querySelector('.box');
+    const gap = 20;
+    const boxWidth = box.offsetWidth + gap;
+
+    next.addEventListener('click', () => { caixa.scrollLeft += boxWidth; });
+    prev.addEventListener('click', () => { caixa.scrollLeft -= boxWidth; });
+  </script>
+</body>
+</html>

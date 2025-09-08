@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      padding-top: 70px; /* espaço para o header fixo */
+      background-image: url(https://i.pinimg.com/1200x/40/ae/ea/40aeeae2df6b865d367ba8edee44f744.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+     
+    }
+
+    body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 70px;
+  background: url(https://i.pinimg.com/1200x/40/ae/ea/40aeeae2df6b865d367ba8edee44f744.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+/* camada branca transparente por cima */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.36); /* branco transparente */
+  z-index: -1; /* fica atrás do conteúdo */
+}
+
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+     
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    
+      z-index: 1000;
+    }
+
+    header img {
+      width: 100px;
+    }
+
+    #lista {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      padding: 0;
+      margin: 0;
+    }
+
+    #lista li {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    #lista a {
+      text-decoration: none;
+      color: rgb(40, 61, 14);
+      background-color: rgba(255, 255, 255, 0.529);
+      padding: 6px;
+      border-radius: 12px;
+    }
+
+    .btn-catalogo {
+      background-color: rgb(240, 241, 239);
+      border-radius: 5px;
+      padding: 7px 15px;
+      color: rgb(55, 65, 61);
+      text-decoration: none;
+    }
+#search-container { display: flex; align-items: center; gap: 10px; }
+    .material-icons { font-size: 28px; color: rgb(251, 253, 250); cursor: pointer; }
+
+    /* Search input */
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #search-input {
+      width: 0;
+      opacity: 0;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #search-input.active {
+      width: 200px;
+      opacity: 1;
+    }
+
+    .material-icons {
+      font-size: 28px;
+      color: rgb(251, 253, 250);
+      cursor: pointer;
+    }
+
+
+      #titulo {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fed5420c;
+      height: 200px;
+      width: 600px;
+      border-radius: 12px;
+      margin-left: 500px;
+      
+    }
+
+    #titulo h1 {
+      margin: 0;
+      font-family: "Merienda", cursive;
+      font-weight: 600;
+      font-size: 100px;
+    }
+    .box button{ background-color: #000; border-radius: 12px; color: #fff; }
+    
+    #titulo p {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    #imagem1 img{
+        width: 650px;
+        background-color:  #00000040;
+        border-radius: 50%;
+    }
+
+    #juntar{
+        display: flex;
+    }
+
+    #baixo{
+        position: relative;
+        top: 100px;
+        margin-left: 30px;
+    }
+
+    #juntar2 {
+    display: flex;
+    align-items: flex-start; /* alinha o topo da imagem com o topo do texto */
+    gap: 30px;
+    margin-top: 100px;
+}
+
+#lado {
+     max-width: 800px; /* largura maior do contêiner */
+    text-align: left;  /* linhas retas */
+    margin-left: 20px;
+}
+
+#imagem2 img {
+    width: 400px; /* reduz a largura para caber ao lado do texto */
+    border-radius: 50%;
+    margin-left: 0; /* remove qualquer margem fixa */
+width: 650px;
+        background-color: #00000040;
+        border-radius: 50%;
+        position: relative;
+        top: -150px;
+    
+    }
+
+    
+
+
+
+    #juntar4 {
+    display: flex;
+    align-items: flex-start; /* alinha o topo da imagem com o topo do texto */
+    gap: 30px;
+    margin-top: 100px;
+}
+
+#lado4 {
+     max-width: 800px; /* largura maior do contêiner */
+    text-align: left;  /* linhas retas */
+    margin-left: 20px;
+    position: relative;
+    top: -300px;
+}
+
+#imagem4 img {
+    width: 400px; /* reduz a largura para caber ao lado do texto */
+    border-radius: 50%;
+    margin-left: 0; /* remove qualquer margem fixa */
+width: 650px;
+        background-color:  #00000040;
+        border-radius: 50%;
+        position: relative;
+        top: -500px;
+    
+    }
+
+
+
+
+ #juntar3 {
+    display: flex;
+    align-items: flex-start; /* alinha o topo da imagem com o topo do texto faz ficarem lado a lado */
+    gap: 30px; /* espaço entre texto e imagem */
+    margin-top: 50px; /* dá respiro */
+}
+
+#lado3 {
+    max-width: 600px; /* limita a largura do texto */
+    text-align: left;
+    margin-left: 100px;
+    width: 9000px;
+    position: relative;
+    top: -180px;
+}
+
+#imagem3 img {
+    width: 500px; /* largura da imagem */
+    border-radius: 30%;
+    background-color:  #00000040;
+    position: relative;
+    top: -250px;
+}
+
+
+
+ .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
+      color: white;
+    }
+
+    .social a { color: white; font-size: 22px; margin: 0 10px; text-decoration: none; }
+    .social a:hover { color: #ff9900; }
+
+    .logo img { width: 80px; }
+
+    .links ul {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 10px 40px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .links ul li { margin-bottom: 8px; }
+
+    footer { background-color: #00000043; width: 100%; }
+
+a{
+        text-decoration: none;
+        color: white;
+    }
+    
+  </style>
+</head>
+<body>
+    <header>
+    <div><img src="/imagens//ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div>
+      <ul id="lista">
+        <li><a href="Projeto_paginaInicial.html">Home</a></li>
+         <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html">Cadastrar</a></li>
+       
+      </ul>
+    </div>
+     <div id="search-container">
+      <span id="search-btn" class="material-icons search-btn">search</span>
+      <input type="text" id="search-input" placeholder="Pesquisar...">
+      <span class="material-icons"><a href='carrinho.html'>shopping_cart</a></span>
+    </div>
+  </header>
+
+
+
+<div id="titulo">
+    <h1>Sobre</h1>
+    <p>Saiba um pouco de nossa empresa</p>
+  </div>
+
+
+
+
+<div id="juntar">
+    <div id="imagem1">
+    <img src="/imagens/pessoas trabalho.png">
+</div>
+
+<div id="baixo">
+<h4>como tudo começou</h4>
+
+<p> A Daroça nasceu da paixão pela agricultura e do respeito à terra. Tudo começou com um sonho simples: cultivar alimentos de qualidade, de forma responsável, unindo tradição e inovação no campo. Ao longo do tempo, esse sonho cresceu, assim como as plantações, e se transformou em uma empresa comprometida em oferecer o melhor da terra com dedicação e cuidado. Cada colheita é resultado de muito trabalho, amor pela natureza e a certeza de que o futuro da agricultura está em produzir com consciência, valorizando quem planta e quem consome</p>
+
+</div>
+
+
+</div>
+
+<div id="juntar2">
+    <div id="lado">
+        <h4>Produto</h4>
+        <p>Quando o pedido do cliente chega, os produtos são separados e encaixotados durante a madrugada para serem entregues no dia seguinte. As caixas para entrega
+são térmicas e foram desenvolvidas pela Klabin para a
+DaRoça. Já o transporte é feito em veículos pequenos e
+climatizados, que ficam no máximo seis horas com os
+produtos.</p>
+    </div>
+
+     <div id="imagem2">
+        <img src="imagens/caixa com comida.png">
+
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+<div id="juntar3">
+
+    <div id="imagem3">
+        <img src="imagens/homem com caixa.png" alt="Imagem da cesta">
+    </div>
+    <div id="lado3">
+
+        
+        <h4>Como Funciona</h4>
+        <p>Na DaRoça, nossos clientes se cadastram em poucos passos, escolhem seus produtos favoritos para compor suas cestas e definem a frequência de entrega — semanal, quinzenal ou mensal. Cada cesta é cuidadosamente separada em nossos centros de distribuição durante a madrugada, com toda atenção e cuidado que nossos clientes merecem, garantindo qualidade e frescor em cada entrega."</p>
+    </div>
+    </div>
+    
+</div>
+
+<div id="juntar4">
+    <div id="lado4">
+        <h4>Produto</h4>
+        <p>A entrega é feita por veículos climatizados para que as
+cestas cheguem em perfeitas condições. As cestas
+chegam sempre das 8h às 19h de terça a sexta-feira. No
+dia da entrega, enviamos uma mensagem para o cliente
+confirmando o horário de chegada da cesta em sua casa.</p>
+    </div>
+
+     <div id="imagem4">
+        <img src="imagens/carro.png">
+
+    </div>
+    
+</div>
+
+
+  <footer>
+    <div class="footer-container">
+      <div class="logo">
+        <img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo">
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>Qualidade que você sente no primeiro pedaço</p>
+      </div>
+
+      <div class="links">
+        <ul>
+          <li><a href="sobre.html">Sobre nós</a></li>
+          <li>Contato</li>
+          <li>Política de Privacidade</li>
+          <li>Termos de Uso</li>
+          <li>Ajuda</li>
+          <li>Serviços</li>
+          <li>Blog</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+<script>
+        // Botão de busca
+    const btn = document.getElementById("search-btn");
+    const input = document.getElementById("search-input");
+    btn.addEventListener("click", () => {
+      input.classList.toggle("active");
+      input.focus();
+    });
+    </script>
+
+
+
+
+</body>
+</html>
