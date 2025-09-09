@@ -51,5 +51,17 @@
     </form>
   </div>
 
+
+  <script>
+        // Botão de busca
+    const btn = document.getElementById("search-btn");
+    const input = document.getElementById("search-input");
+    btn.addEventListener("click", () => {
+      input.classList.toggle("active");
+      input.focus();
+    });
+    </script>
+    
 </body>
 </html>
+
