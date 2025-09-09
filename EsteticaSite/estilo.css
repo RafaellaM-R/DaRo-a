@@ -1,158 +1,28 @@
-body {
-  font-family: Arial, sans-serif;
-  background: url("imagens/fundo-final.jpg");
-  margin: 0;
-  padding: 20px;
-  text-align: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+ a { color: #1c31197d; }
+    a:hover { color: #1131077d; }
 
-.titulo {
-  color: rgba(255, 255, 255, 0.054);
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-/* Card de contato */
-.card-contato {
-  background: rgba(255, 255, 255, 0.512);
-  border-radius: 15px;
-  padding: 30px;
-  width: 400px;
-  margin: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  text-align: left;
-}
-
-.card-contato h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.linha {
-  display: flex;
-  gap: 10px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #cccccc17;
-  font-size: 0.9rem;
-}
-
-textarea {
-  resize: none;
-  height: 100px;
-}
-
-button {
-  background: black;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #444;
-}
-
-
- header {
-      background-color: #00000081;
-      padding: 10px 20px;
+    .footer-container {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #000000;
-    }
-
-    header img { width: 100px; }
-
-    #titulo {
-      height: 150px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      
-    }
-
-    #titulo h1 {
-      margin: 0;
-      font-family: "Merienda", cursive;
-      font-weight: 600;
-    }
-    .box button{ background-color: #000; border-radius: 12px; color: #fff; }
-    
-    #titulo p {
-      margin: 5px 0 0 0;
-      font-size: 14px;
-      color: #333;
-    }
-
-     header {
-      background-color: #0000008a;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    #lista { list-style: none; display: flex; padding: 0; margin: 0; }
-    #lista li { margin: 0 13px; font-family: Verdana, Geneva, Tahoma, sans-serif; }
-    header li > a {
-      text-decoration: none;
-      color: rgb(40, 61, 14);
-      background-color: rgba(255, 255, 255, 0.529);
-      padding: 6px;
-      border-radius: 12px;
-    }
-    header img { width: 100px; }
-    .btn-catalogo { background-color: rgb(240, 241, 239); border-radius: 5px; padding: 7px 15px; color: rgb(55, 65, 61); text-decoration: none; font-family: Verdana, Geneva, Tahoma, sans-serif; }
-    #search-container { display: flex; align-items: center; gap: 10px; }
-    .material-icons { font-size: 28px; color: rgb(251, 253, 250); cursor: pointer; }
-
-    /* Search input */
-    .search-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    #search-input {
-      width: 0;
-      opacity: 0;
-      padding: 5px 10px;
-      margin-left: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    #search-input.active {
-      width: 200px;
-      opacity: 1;
-    }
-
-    a{
-      text-decoration: none;
+      align-items: flex-start;
+      padding: 20px;
       color: white;
     }
-    
-    
+
+    .social a { color: white; font-size: 22px; margin: 0 10px; text-decoration: none; }
+    .social a:hover { color: #ff9900; }
+
+    .logo img { width: 80px; }
+
+    .links ul {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 10px 40px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .links ul li { margin-bottom: 8px; }
+
+    footer { background-color: #00000043; width: 100%; }
