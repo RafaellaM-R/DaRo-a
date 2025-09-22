@@ -1,0 +1,49 @@
+const express = require("express");
+const sql = require("mssql");
+const cors = require("cors");
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+const config = {
+    user: "seu_usuario",
+    password: "sua_senha",
+    server: "localhost",
+    database: "daroca",
+    options: { encrypt: false, trustServerCertificate: true }
+};
+
+// Rota produtos
+app.get("/produtos", async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("SELECT * FROM daroca.produtos");
+        res.json(result.recordset);
+    } catch (err) { res.status(500).send(err.message); }
+});
+
+// Rota categorias
+app.get("/categorias", async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("SELECT * FROM daroca.categorias");
+        res.json(result.recordset);
+    } catch (err) { res.status(500).send(err.message); }
+});
+
+// Rota clientes
+app.post("/clientes", async (req, res) => {
+    const { nome, email, telefone } = req.body;
+    try {
+        let pool = await sql.connect(config);
+        await pool.request()
+            .input("nome", sql.VarChar, nome)
+            .input("email", sql.VarChar, email)
+            .input("telefone", sql.VarChar, telefone)
+            .query("INSERT INTO daroca.clientes (nome, email, telefone) VALUES (@nome,@email,@telefone)");
+        res.send("Cliente cadastrado com sucesso!");
+    } catch (err) { res.status(500).send(err.message); }
+});
+
+app.listen(3000, () => console.log("API rodando em http://localhost:3000"));
