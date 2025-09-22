@@ -1,0 +1,77 @@
+CREATE SCHEMA daroca;
+
+
+CREATE TABLE daroca.produtos(
+    id INT IDENTITY (1, 1) NOT NULL,
+    nome VARCHAR (30) NULL,
+    imagem VARCHAR (50) NULL,
+    valor REAL NULL,
+    descricao VARCHAR (50) NULL,
+    categoria INT,
+    PRIMARY KEY CLUSTERED (id ASC)
+);
+
+
+CREATE TABLE daroca.categorias(
+    id INT IDENTITY (1, 1) NOT NULL,
+    nome VARCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED (id ASC)
+);
+
+-- Inserir categorias
+INSERT INTO daroca.categorias (nome) VALUES ('frutas');
+INSERT INTO daroca.categorias (nome) VALUES ('legumes');
+INSERT INTO daroca.categorias (nome) VALUES ('laticinios');
+
+
+-- Inserir frutas (categoria 1)
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('banana','banana.jpg', 7.00, 'Banana nanica', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('maca','maca.jpg', 7.00, 'Maçã fuji', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('ameixa','ameixa.jpg', 7.00, 'Ameixa fresca', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('maracuja','maracuja.jpg', 7.00, 'Maracujá azedo', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('manga','manga.jpg', 7.00, 'Manga tommy', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('melancia','melancia.jpg', 7.00, 'Melancia inteira', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('morango','morango.jpg', 7.00, 'Morango orgânico', 1);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('laranja','laranja.jpg', 7.00, 'Laranja pera', 1);
+
+-- Inserir legumes (categoria 2)
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('batata','batata.jpg', 7.00, 'Batata inglesa', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('couve-flor','couveflor.jpg', 7.00, 'Couve-flor fresca', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('brocolis','brocolis.jpg', 7.00, 'Brócolis ninja', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('pepino','pepino.jpg', 7.00, 'Pepino caipira', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('abobrinha','abobrinha.jpg', 7.00, 'Abobrinha italiana', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('abobora','abobora.jpg', 7.00, 'Abóbora cabotiá', 2);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('mandioca','mandioca.jpg', 7.00, 'Mandioca cozida', 2);
+
+-- Inserir laticínios (categoria 3)
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('doce de leite','doce_leite.jpg', 12.00, 'Doce de leite caseiro', 3);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('doce de abobora','doce_abobora.jpg', 10.00, 'Doce de abóbora cremoso', 3);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('iogurte','iogurte.jpg', 8.00, 'Iogurte natural', 3);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('geleia de morango','geleia_morango.jpg', 9.00, 'Geleia artesanal', 3);
+INSERT INTO daroca.produtos (nome, imagem, valor, descricao, categoria) VALUES
+('doce de banana','doce_banana.jpg', 10.00, 'Doce de banana caseiro', 3);
+
+
+
+SELECT * FROM daroca.categorias;
+SELECT * FROM daroca.produtos;
+
