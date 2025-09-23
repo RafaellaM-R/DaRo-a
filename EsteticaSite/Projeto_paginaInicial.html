@@ -33,6 +33,14 @@
       border-bottom: 1px solid #ddd;
     }
 
+    .lupa_deBaixo{
+         padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
     #lista { list-style: none; display: flex; padding: 0; margin: 0; }
     #lista li { margin: 0 13px; font-family: Verdana, Geneva, Tahoma, sans-serif; }
     header li > a {
@@ -43,16 +51,10 @@
       border-radius: 12px;
     }
     header img { width: 100px; }
-    .btn-catalogo {
-      background-color: rgb(240, 241, 239);
-      border-radius: 5px;
-      padding: 7px 15px;
-      color: rgb(55, 65, 61);
-      text-decoration: none;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
+    
 
-    #search-container { display: flex; align-items: center; gap: 10px; }
+    .search-container { display: flex; align-items: center; gap: 10px; }
+    .search-containerr { display: flex; align-items: center; gap: 10px; margin-left: 40px; }
     .material-icons { font-size: 28px; color: rgb(251, 253, 250); cursor: pointer; }
 
     /* Search input */
@@ -62,7 +64,7 @@
       cursor: pointer;
     }
 
-    #search-input {
+    .search-input {
       width: 0;
       opacity: 0;
       padding: 5px 10px;
@@ -73,7 +75,7 @@
       transition: all 0.3s ease;
     }
 
-    #search-input.active {
+    .search-input.active {
       width: 200px;
       opacity: 1;
     }
@@ -156,18 +158,22 @@
     }
 
     /* Caixa de categorias */
-    #caixa {
-      display: flex;
-      border-radius: 12px;
-      background-color: #3a2b0c61;
-      padding: 20px;
-      gap: 20px;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+#caixa, #caixaa, #caixaaa {
+  display: flex;
+  border-radius: 12px;
+  background-color: #3a2b0c61;
+  padding: 20px;
+  gap: 20px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;        /* largura fixa */
+}
 
     .box {
-      width: 400px;
+
+    flex: 0 0 auto;      /* impede que os cards se estiquem */
+      width: 200px;
+      height: auto;
       background-color: rgba(115, 108, 85, 0.623);
       border-radius: 11px;
       padding: 10px;
@@ -177,11 +183,11 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .box img {
-      width: 200px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 12%;
-      margin-top: 10px;
+        width: 200px;   /* imagem menor que a box */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12%;
+  margin-top: 10px;
     }
     .box:hover {
       transform: translateY(-5px);
@@ -191,11 +197,22 @@
     h3 {
       font-size: 60px;
       color: rgb(133, 169, 133);
-      border-bottom: 3px solid rgb(0, 0, 0);
+      
       -webkit-text-stroke: 2px rgb(0, 0, 0);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.858);
       text-align: center;
       margin-top: 40px;
+    }
+
+    h5{
+         font-size: 60px;
+      color: rgb(133, 169, 133);
+      border-bottom: 3px solid rgb(0, 0, 0);
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.17);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.858);
+     
+      margin-top: 40px;
+
     }
 
     h4 { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 23px; }
@@ -224,8 +241,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 1080px;
+      width: 100%;
       margin: 0 auto;
+      
     }
 
     .botaozinho {
@@ -280,18 +298,19 @@
 </head>
 <body>
   <header>
-    <div><img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div><img src="/imagens//ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
     <div>
       <ul id="lista">
         <li><a href="Projeto_paginaInicial.html">Home</a></li>
         <li><a href="sobre.html">Sobre</a></li>
         <li><a href="cadastro.html">Cadastrar</a></li>
-        <li><a href="#catalogooo" class="btn-catalogo">Catálogo</a></li>
+        <li><a href="#catalogooo" >Catálogo</a></li>
+        <li><a href="receitas.html">receitas</a></li>
       </ul>
     </div>
-    <div id="search-container">
-      <span id="search-btn" class="material-icons search-btn">search</span>
-      <input type="text" id="search-input" placeholder="Pesquisar...">
+    <div class="search-container">
+      <span class="material-icons search-btn">search</span>
+      <input type="text" class="search-input" placeholder="Pesquisar...">
       <span class="material-icons"><a href="carrinho.html">shopping_cart</a></span>
     </div>
   </header>
@@ -308,49 +327,84 @@
         </div>
       </div>
       <div id="imagem">
-        <img src="/imagens/tomates.png" alt="Imagem de comida" style="width: 680px; height: 500px;">
+        <img src="/imagens/tomates frescos.png" alt="Imagem de comida" style="width: 680px; height: 500px;">
       </div>
     </div>
   </div>
 
   <div id="retangulos">
-    <h3 id="catalogooo"> -- Catálogo --</h3>
+    
+        <h3 id="catalogooo"> -- Catálogo --</h3>
+        <div class="lupa_deBaixo">
+    <h5>Laticineos</h5>
+
+    <div class="search-containerr">
+      <span class="material-icons search-btn">search</span>
+
+      <input type="text" class="search-input" placeholder="Pesquisar...">
+    </div>
+
+    </div>
+    
     <div id="caixa-container">
-      <button class="botoes_redondos" id="prev">&#60;</button>
-      <div id="caixa">
-        <div class="box">
-          <img src="imagem/produto/caixa_vegetais.png">
-          <h4>Legumes</h4>
-          <p>Deixe sua refeição mais colorida e saudável!</p>
-          <button class="botaozinho"><a href="legumes.html">Clique Aqui!</a></button>
-        </div>
-        <div class="box">
-          <img src="imagem/produto/Frutas.webp">
-          <h4>Frutas</h4>
-          <p>Procurando frutas fresquinhas?</p>
-          <button class="botaozinho"><a href="Projeto_paginaProduto.html">Clique Aqui!</a></button>
-        </div>
-        <div class="box">
-          <img src="imagem/produto/laticineos_imagem_pao.webp">
-          <h4>Laticínios</h4>
-          <p>Procurando queijos, iogurtes e outros laticínios fresquinhos?</p>
-          <button class="botaozinho"><a href="lactineos.html">Clique Aqui!</a></button>
-        </div>
-        <div class="box">
-          <img src="/imagens/saladaaaa.png">
-          <h4>Receitas</h4>
-          <p>Receitas ótimas para seu paladar.</p>
-          <button class="botaozinho"><a href="receitas.html">Clique Aqui!</a></button>
-        </div>
+      <button class="botoes_redondos prev" data-target="caixaa">&#60;</button>
+      <div id="caixaa">
+       
       </div>
-      <button class="botoes_redondoss" id="next">&#62;</button>
+      <button class="botoes_redondoss next" data-target="caixaa">&#62;</button>
+    </div>
+
+
+
+
+
+     <div class="lupa_deBaixo">
+    <h5>Frutas</h5>
+
+    <div class="search-containerr">
+      <span class="material-icons search-btn">search</span>
+      <input type="text" class="search-input" placeholder="Pesquisar...">
+    </div>
+
+    </div>
+     
+     
+    <div id="caixa-container">
+      <button class="botoes_redondos prev" data-target="caixa">&#60;</button>
+      <div id="caixa">
+        
+      </div>
+      <button class="botoes_redondoss next" data-target="caixa">&#62;</button>
+    </div>
+
+
+
+
+
+
+      <div class="lupa_deBaixo">
+    <h5>Legumes</h5>
+
+    <div class="search-containerr">
+      <span class="material-icons search-btn">search</span>
+      <input type="text" class="search-input" placeholder="Pesquisar...">
+    </div>
+
+    </div>
+    <div id="caixa-container">
+     <button class="botoes_redondos prev" data-target="caixaaa">&#60;</button>
+      <div id="caixaaa">
+       
+        
+      </div>
+     <button class="botoes_redondoss next" data-target="caixaaa">&#62;</button>
     </div>
   </div>
 
   <footer>
     <div class="footer-container">
       <div class="logo">
-        <img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo">
+        <img src="/imagens//ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo">
         <div class="social">
           <a href="#"><i class="fab fa-facebook"></i></a>
           <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -375,24 +429,193 @@
   </footer>
 
   <script>
-    // Botão de busca
-    const btn = document.getElementById("search-btn");
-    const input = document.getElementById("search-input");
-    btn.addEventListener("click", () => {
-      input.classList.toggle("active");
-      input.focus();
-    });
+    async function carregarProdutos() {
+      try {
+        const res = await fetch("http://localhost:3000/produtos");
+        const produtos = await res.json();
+  
+        const caixa = document.getElementById("caixa");
+        caixa.innerHTML = ""; // limpa qualquer conteúdo anterior
+  
+        produtos.forEach(produto => {
+          const box = document.createElement("div");
+          box.className = "box";
+  
+          box.innerHTML = `
+            <img src="imagem_produto/${produto.imagem}" alt="${produto.nome}">
+            <h4>Nome: ${produto.nome}</h4>
+            <p>Descrição: ${produto.descricao}</p>
+            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+            <button class="botaozinho">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          `;
+  
+          caixa.appendChild(box);
+        });
+      } catch (err) {
+        console.error("Erro ao carregar produtos:", err);
+      }
+    }
+  
+    window.onload = carregarProdutos;
+  </script>
+  
 
-    // Carrossel
-    const caixa = document.getElementById('caixa');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
-    const box = document.querySelector('.box');
-    const gap = 20;
-    const boxWidth = box.offsetWidth + gap;
+  <script>
+    // Seleciona todas as lupas e inputs
+const btns = document.querySelectorAll(".search-btn");
+const inputs = document.querySelectorAll(".search-input");
 
-    next.addEventListener('click', () => { caixa.scrollLeft += boxWidth; });
-    prev.addEventListener('click', () => { caixa.scrollLeft -= boxWidth; });
+// Para cada lupa encontrada
+btns.forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    inputs[index].classList.toggle("active");
+    inputs[index].focus();
+  });
+});
+
+
+document.querySelectorAll(".prev, .next").forEach(botao => {
+  botao.addEventListener("click", () => {
+    const targetId = botao.getAttribute("data-target"); // pega o id do container
+    const caixa = document.getElementById(targetId);
+
+    if (caixa) {
+      const card = caixa.querySelector(".box"); // pega um card como referência
+      if (card) {
+        const deslocamento = card.offsetWidth + 20; // largura + gap
+        caixa.scrollBy({
+          left: botao.classList.contains("next") ? deslocamento : -deslocamento,
+          behavior: "smooth"
+        });
+      }
+    }
+  });
+});
+
+
+document.querySelectorAll(".prev, .next").forEach(botao => {
+  botao.addEventListener("click", () => {
+    const targetId = botao.getAttribute("data-target"); // pega o id do container
+    const caixa = document.getElementById(targetId);
+
+    if (caixa) {
+      const card = caixa.querySelector(".box"); // pega um card como referência
+      if (card) {
+        const deslocamento = card.offsetWidth + 20; // largura + gap
+        caixa.scrollBy({
+          left: botao.classList.contains("next") ? deslocamento : -deslocamento,
+          behavior: "smooth"
+        });
+      }
+    }
+  });
+});
+
+
+document.querySelectorAll(".prev, .next").forEach(botao => {
+  botao.addEventListener("click", () => {
+    const targetId = botao.getAttribute("data-target"); // pega o id do container
+    const caixa = document.getElementById(targetId);
+
+    if (caixa) {
+      const card = caixa.querySelector(".box"); // pega um card como referência
+      if (card) {
+        const deslocamento = card.offsetWidth + 20; // largura + gap
+        caixa.scrollBy({
+          left: botao.classList.contains("next") ? deslocamento : -deslocamento,
+          behavior: "smooth"
+        });
+      }
+    }
+  });
+});
+
+
+    //cards fruta
+   fetch("dados_frutas.json")
+  .then(response => response.json())
+  .then(dados => {
+    exibeDados(dados); // aqui corrigi de "data" para "dados"
+  })
+  .catch(error => console.error("Erro ao carregar JSON:", error));
+
+function exibeDados(dados) {
+  let posts = "";
+  for (let i = 0; i < dados.length; i++) {
+    posts += `<div class="box">`;
+    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
+    posts += `<h4>${dados[i].nome}</h4>`;
+    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
+    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
+    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
+    posts += `
+      <button class="botaozinho">
+        <i class="fas fa-cart-plus"></i>
+      </button>
+    `;
+    posts += `</div>`;
+  }
+  document.getElementById("caixa").innerHTML = posts;
+}
+
+   //cards lactineos
+   fetch("dados_laticinios.json")
+  .then(response => response.json())
+  .then(dados => {
+    exibeDadoss(dados); // aqui corrigi de "data" para "dados"
+  })
+  .catch(error => console.error("Erro ao carregar JSON:", error));
+
+function exibeDadoss(dados) {
+  let posts = "";
+  for (let i = 0; i < dados.length; i++) {
+    posts += `<div class="box">`;
+    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
+    posts += `<h4>${dados[i].nome}</h4>`;
+    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
+    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
+    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
+    posts += `
+      <button class="botaozinho">
+        <i class="fas fa-cart-plus"></i>
+      </button>
+    `;
+    posts += `</div>`;
+  }
+  document.getElementById("caixaa").innerHTML = posts;
+}
+
+
+   //cards legumes
+   fetch("dados_legumes.json")
+  .then(response => response.json())
+  .then(dados => {
+    exibeDadosss(dados); // aqui corrigi de "data" para "dados"
+  })
+  .catch(error => console.error("Erro ao carregar JSON:", error));
+
+function exibeDadosss(dados) {
+  let posts = "";
+  for (let i = 0; i < dados.length; i++) {
+    posts += `<div class="box">`;
+    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
+    posts += `<h4>${dados[i].nome}</h4>`;
+    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
+    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
+    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
+    posts += `
+      <button class="botaozinho">
+        <i class="fas fa-cart-plus"></i>
+      </button>
+    `;
+    posts += `</div>`;
+  }
+  document.getElementById("caixaaa").innerHTML = posts;
+}
+
+        
   </script>
 </body>
 </html>
