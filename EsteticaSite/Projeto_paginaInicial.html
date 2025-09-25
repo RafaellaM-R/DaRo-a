@@ -347,11 +347,11 @@
     </div>
     
     <div id="caixa-container">
-      <button class="botoes_redondos prev" data-target="caixaa">&#60;</button>
-      <div id="caixaa">
+      <button class="botoes_redondos prev" data-target="caixa">&#60;</button>
+      <div id="caixa">
        
       </div>
-      <button class="botoes_redondoss next" data-target="caixaa">&#62;</button>
+      <button class="botoes_redondoss next" data-target="caixa">&#62;</button>
     </div>
 
 
@@ -370,11 +370,11 @@
      
      
     <div id="caixa-container">
-      <button class="botoes_redondos prev" data-target="caixa">&#60;</button>
-      <div id="caixa">
+      <button class="botoes_redondos prev" data-target="caixaa">&#60;</button>
+      <div id="caixaa">
         
       </div>
-      <button class="botoes_redondoss next" data-target="caixa">&#62;</button>
+      <button class="botoes_redondoss next" data-target="caixaa">&#62;</button>
     </div>
 
 
@@ -394,11 +394,11 @@
     <div id="caixa-container">
      <button class="botoes_redondos prev" data-target="caixaaa">&#60;</button>
       <div id="caixaaa">
+
+      </div>
        
         
-      </div>
-     <button class="botoes_redondoss next" data-target="caixaaa">&#62;</button>
-    </div>
+  
   </div>
 
   <footer>
@@ -434,15 +434,112 @@
         const res = await fetch("http://localhost:3000/produtos");
         const produtos = await res.json();
   
-        const caixa = document.getElementById("caixa");
-        caixa.innerHTML = ""; // limpa qualquer conteúdo anterior
+        const caixaFrutas = document.getElementById("caixaa");
+   
+
+
+    caixaFrutas.innerHTML = "";// limpa qualquer conteúdo anterior
   
         produtos.forEach(produto => {
           const box = document.createElement("div");
           box.className = "box";
   
           box.innerHTML = `
-            <img src="imagem_produto/${produto.imagem}" alt="${produto.nome}">
+            <img src="imagens_produtoss/${produtos.imagem}" alt="${produto.nome}">
+            <h4>Nome: ${produto.nome}</h4>
+            <p>Descrição: ${produto.descricao}</p>
+            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+            <button class="botaozinho">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          `;
+  
+          caixaa.appendChild(box);
+        
+        });
+
+
+        
+      } catch (err) {
+        console.error("Erro ao carregar produtos:", err);
+      }
+    }
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    async function carregarProdutos_Legumes() {
+      try {
+        const res = await fetch("http://localhost:3000/produtos");
+        const produtos = await res.json();
+  
+    const caixaLegumes = document.getElementById("caixaaa");
+
+    caixaLegumes.innerHTML = "";// limpa qualquer conteúdo anterior
+  
+        produtos.forEach(produto => {
+          const box = document.createElement("div");
+          box.className = "box";
+  
+          box.innerHTML = `
+            <img src="imagem_produtoss/${produto.imagem}" alt="${produto.nome}">
+            <h4>Nome: ${produto.nome}</h4>
+            <p>Descrição: ${produto.descricao}</p>
+            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+            <button class="botaozinho">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          `;
+  
+          caixaaa.appendChild(box);
+        
+        });
+
+
+        
+      } catch (err) {
+        console.error("Erro ao carregar produtos:", err);
+      }
+    }
+  
+   
+
+
+
+
+
+
+
+
+
+
+    async function carregarProdutos_laticinios() {
+      try {
+        const res = await fetch("http://localhost:3000/produtos");
+        const produtos = await res.json();
+  
+     
+        const caixaLaticinios = document.getElementById("caixa");
+    
+
+    caixaLaticinios.innerHTML = "";// limpa qualquer conteúdo anterior
+  
+        produtos.forEach(produto => {
+          const box = document.createElement("div");
+          box.className = "box";
+  
+          box.innerHTML = `
+            <img src="imagem_produtoss/${produto.imagem}" alt="${produto.nome}">
             <h4>Nome: ${produto.nome}</h4>
             <p>Descrição: ${produto.descricao}</p>
             <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
@@ -452,13 +549,26 @@
           `;
   
           caixa.appendChild(box);
+        
         });
+
+
+        
       } catch (err) {
         console.error("Erro ao carregar produtos:", err);
       }
     }
   
-    window.onload = carregarProdutos;
+    
+
+
+    window.onload = () => {
+      carregarProdutos();          // frutas
+  carregarProdutos_Legumes();  // legumes
+  carregarProdutos_laticinios();
+};
+
+
   </script>
   
 
@@ -534,86 +644,13 @@ document.querySelectorAll(".prev, .next").forEach(botao => {
 
 
     //cards fruta
-   fetch("dados_frutas.json")
-  .then(response => response.json())
-  .then(dados => {
-    exibeDados(dados); // aqui corrigi de "data" para "dados"
-  })
-  .catch(error => console.error("Erro ao carregar JSON:", error));
+   
 
-function exibeDados(dados) {
-  let posts = "";
-  for (let i = 0; i < dados.length; i++) {
-    posts += `<div class="box">`;
-    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
-    posts += `<h4>${dados[i].nome}</h4>`;
-    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
-    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
-    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
-    posts += `
-      <button class="botaozinho">
-        <i class="fas fa-cart-plus"></i>
-      </button>
-    `;
-    posts += `</div>`;
-  }
-  document.getElementById("caixa").innerHTML = posts;
-}
-
-   //cards lactineos
-   fetch("dados_laticinios.json")
-  .then(response => response.json())
-  .then(dados => {
-    exibeDadoss(dados); // aqui corrigi de "data" para "dados"
-  })
-  .catch(error => console.error("Erro ao carregar JSON:", error));
-
-function exibeDadoss(dados) {
-  let posts = "";
-  for (let i = 0; i < dados.length; i++) {
-    posts += `<div class="box">`;
-    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
-    posts += `<h4>${dados[i].nome}</h4>`;
-    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
-    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
-    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
-    posts += `
-      <button class="botaozinho">
-        <i class="fas fa-cart-plus"></i>
-      </button>
-    `;
-    posts += `</div>`;
-  }
-  document.getElementById("caixaa").innerHTML = posts;
-}
+  
 
 
    //cards legumes
-   fetch("dados_legumes.json")
-  .then(response => response.json())
-  .then(dados => {
-    exibeDadosss(dados); // aqui corrigi de "data" para "dados"
-  })
-  .catch(error => console.error("Erro ao carregar JSON:", error));
-
-function exibeDadosss(dados) {
-  let posts = "";
-  for (let i = 0; i < dados.length; i++) {
-    posts += `<div class="box">`;
-    posts += `<img src="${dados[i].imagem}" alt="${dados[i].nome}" style="width:100%; border-radius:8px;">`;
-    posts += `<h4>${dados[i].nome}</h4>`;
-    posts += `<p>Unidade: ${dados[i].unidade}</p>`;
-    posts += `<p>Quantidade: ${dados[i].kilo}</p>`;
-    posts += `<p>Preço: R$ ${dados[i].preco.toFixed(2)}</p>`;
-    posts += `
-      <button class="botaozinho">
-        <i class="fas fa-cart-plus"></i>
-      </button>
-    `;
-    posts += `</div>`;
-  }
-  document.getElementById("caixaaa").innerHTML = posts;
-}
+   
 
         
   </script>
