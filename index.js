@@ -10,8 +10,10 @@ const PORT = process.env.PORTA || 3000; // usa a porta do .env ou 3000
 const stringSQL = process.env.CONNECTION_STRING;
 
 // Middleware
-app.use(cors({ origin: "http://localhost" }));
+app.use(cors())
 app.use(express.json());
+app.use("/imagem_produto", express.static("imagem_produto"));
+
 
 
 const poolPromise = new sql.ConnectionPool(stringSQL)
@@ -40,7 +42,7 @@ app.get("/produtos", async (req, res) => {
 });
 
 // Buscar categorias
-app.get("/categorias", async (req, res) => {
+app.get("/categoria", async (req, res) => {
     try {
         const pool = await poolPromise;
         const result = await pool.request().query("SELECT * FROM daroca.categorias");
@@ -50,6 +52,7 @@ app.get("/categorias", async (req, res) => {
         res.status(500).send("Erro ao buscar categorias: " + err.message);
     }
 });
+
 
 // Cadastrar cliente
 app.post("/clientes", async (req, res) => {
