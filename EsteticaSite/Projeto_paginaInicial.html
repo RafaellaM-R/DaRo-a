@@ -183,11 +183,11 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .box img {
-        width: 200px;   /* imagem menor que a box */
-  height: 120px;
-  object-fit: cover;
-  border-radius: 12%;
-  margin-top: 10px;
+      width: 180px;        /* tamanho que você quer mostrar */
+  height: 160px;       /* define a altura da área */
+  object-fit: contain; /* ajusta a imagem inteira dentro do espaço */
+  border-radius: 8px;  /* opcional, se quiser cantos arredondados */
+  
     }
     .box:hover {
       transform: translateY(-5px);
@@ -198,7 +198,7 @@
       font-size: 60px;
       color: rgb(133, 169, 133);
       
-      -webkit-text-stroke: 2px rgb(0, 0, 0);
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.504);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.858);
       text-align: center;
       margin-top: 40px;
@@ -397,7 +397,7 @@
 
       </div>
        
-        
+    <button class="botoes_redondoss next" data-target="caixaaa">&#62;</button>
   
   </div>
 
@@ -430,144 +430,113 @@
 
   <script>
     async function carregarProdutos() {
-      try {
-        const res = await fetch("http://localhost:3000/produtos");
-        const produtos = await res.json();
-  
-        const caixaFrutas = document.getElementById("caixaa");
-   
+  try {
+    const res = await fetch("http://localhost:3000/produtos");
+    const produtos = await res.json();
+
+    const caixaFrutas = document.getElementById("caixaa");
+    caixaFrutas.innerHTML = ""; // limpa antes
+
+    // categoria 1 = frutas
+    const frutas = produtos.filter(p => p.categoria === 1);
+
+    frutas.forEach(produto => {
+      const box = document.createElement("div");
+      box.className = "box";
+
+      box.innerHTML = `
+        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+        <h4>Nome: ${produto.nome}</h4>
+        <p>Descrição: ${produto.descricao}</p>
+        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+        <button class="botaozinho">
+          <i class="fas fa-cart-plus"></i>
+        </button>
+      `;
+
+      caixaFrutas.appendChild(box);
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar produtos:", err);
+  }
+}
 
 
-    caixaFrutas.innerHTML = "";// limpa qualquer conteúdo anterior
-  
-        produtos.forEach(produto => {
-          const box = document.createElement("div");
-          box.className = "box";
-  
-          box.innerHTML = `
-            <img src="imagens_produtoss/${produtos.imagem}" alt="${produto.nome}">
-            <h4>Nome: ${produto.nome}</h4>
-            <p>Descrição: ${produto.descricao}</p>
-            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-            <button class="botaozinho">
-              <i class="fas fa-cart-plus"></i>
-            </button>
-          `;
-  
-          caixaa.appendChild(box);
-        
-        });
+async function carregarProdutos_Legumes() {
+  try {
+    const res = await fetch("http://localhost:3000/produtos");
+    const produtos = await res.json();
 
-
-        
-      } catch (err) {
-        console.error("Erro ao carregar produtos:", err);
-      }
-    }
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    async function carregarProdutos_Legumes() {
-      try {
-        const res = await fetch("http://localhost:3000/produtos");
-        const produtos = await res.json();
-  
     const caixaLegumes = document.getElementById("caixaaa");
+    caixaLegumes.innerHTML = "";
 
-    caixaLegumes.innerHTML = "";// limpa qualquer conteúdo anterior
-  
-        produtos.forEach(produto => {
-          const box = document.createElement("div");
-          box.className = "box";
-  
-          box.innerHTML = `
-            <img src="imagem_produtoss/${produto.imagem}" alt="${produto.nome}">
-            <h4>Nome: ${produto.nome}</h4>
-            <p>Descrição: ${produto.descricao}</p>
-            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-            <button class="botaozinho">
-              <i class="fas fa-cart-plus"></i>
-            </button>
-          `;
-  
-          caixaaa.appendChild(box);
-        
-        });
+    // categoria 2 = legumes
+    const legumes = produtos.filter(p => p.categoria === 2);
 
+    legumes.forEach(produto => {
+      const box = document.createElement("div");
+      box.className = "box";
 
-        
-      } catch (err) {
-        console.error("Erro ao carregar produtos:", err);
-      }
-    }
-  
-   
+      box.innerHTML = `
+        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+        <h4>Nome: ${produto.nome}</h4>
+        <p>Descrição: ${produto.descricao}</p>
+        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+        <button class="botaozinho">
+          <i class="fas fa-cart-plus"></i>
+        </button>
+      `;
+
+      caixaLegumes.appendChild(box);
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar produtos:", err);
+  }
+}
 
 
+ async function carregarProdutos_Laticinios() {
+  try {
+    const res = await fetch("http://localhost:3000/produtos");
+    const produtos = await res.json();
 
+    const caixaLaticinios = document.getElementById("caixa");
+    caixaLaticinios.innerHTML = ""; // limpa qualquer conteúdo anterior
 
+    // garante que compara número com número
+    const laticinios = produtos.filter(p => Number(p.categoria) === 3);
 
+    laticinios.forEach(produto => {
+      const box = document.createElement("div");
+      box.className = "box";
 
+      box.innerHTML = `
+        <img src="/imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+        <h4>Nome: ${produto.nome}</h4>
+        <p>Descrição: ${produto.descricao}</p>
+        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+        <button class="botaozinho">
+          <i class="fas fa-cart-plus"></i>
+        </button>
+      `;
 
+      // aqui o nome certo:
+      caixaLaticinios.appendChild(box);
+    });
 
-
-
-    async function carregarProdutos_laticinios() {
-      try {
-        const res = await fetch("http://localhost:3000/produtos");
-        const produtos = await res.json();
-  
-     
-        const caixaLaticinios = document.getElementById("caixa");
-    
-
-    caixaLaticinios.innerHTML = "";// limpa qualquer conteúdo anterior
-  
-        produtos.forEach(produto => {
-          const box = document.createElement("div");
-          box.className = "box";
-  
-          box.innerHTML = `
-            <img src="imagem_produtoss/${produto.imagem}" alt="${produto.nome}">
-            <h4>Nome: ${produto.nome}</h4>
-            <p>Descrição: ${produto.descricao}</p>
-            <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-            <button class="botaozinho">
-              <i class="fas fa-cart-plus"></i>
-            </button>
-          `;
-  
-          caixa.appendChild(box);
-        
-        });
-
-
-        
-      } catch (err) {
-        console.error("Erro ao carregar produtos:", err);
-      }
-    }
-  
-    
+  } catch (err) {
+    console.error("Erro ao carregar produtos:", err);
+  }
+}
 
 
     window.onload = () => {
-      carregarProdutos();          // frutas
+  carregarProdutos();          // frutas
   carregarProdutos_Legumes();  // legumes
-  carregarProdutos_laticinios();
+  carregarProdutos_Laticinios(); // laticínios
 };
-
 
   </script>
   
@@ -643,14 +612,7 @@ document.querySelectorAll(".prev, .next").forEach(botao => {
 });
 
 
-    //cards fruta
-   
-
-  
-
-
-   //cards legumes
-   
+    
 
         
   </script>
