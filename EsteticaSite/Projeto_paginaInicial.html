@@ -429,15 +429,36 @@
   </footer>
 
   <script>
-    async function carregarProdutos() {
+  // Função auxiliar para adicionar produto ao carrinho
+// carrinho inicializado do localStorage ou vazio
+let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+function adicionarAoCarrinho(produto) {
+  // procura produto existente
+  const existente = carrinho.find(p => p.id === produto.id);
+
+  if (existente) {
+    existente.quantidade += 1;
+  } else {
+    carrinho.push({ ...produto, quantidade: 1 });
+  }
+
+  // atualiza o localStorage
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+  alert(`🛒 ${produto.nome} foi adicionado ao carrinho!`);
+}
+
+
+
+async function carregarProdutos() {
   try {
     const res = await fetch("http://localhost:3000/produtos");
     const produtos = await res.json();
 
     const caixaFrutas = document.getElementById("caixaa");
-    caixaFrutas.innerHTML = ""; // limpa antes
+    caixaFrutas.innerHTML = "";
 
-    // categoria 1 = frutas
     const frutas = produtos.filter(p => p.categoria === 1);
 
     frutas.forEach(produto => {
@@ -454,6 +475,11 @@
         </button>
       `;
 
+      // quando clicar no botão, adiciona ao carrinho
+      box.querySelector(".botaozinho").addEventListener("click", () => {
+        adicionarAoCarrinho(produto);
+      });
+
       caixaFrutas.appendChild(box);
     });
 
@@ -463,6 +489,7 @@
 }
 
 
+// ========================= LEGUMES =========================
 async function carregarProdutos_Legumes() {
   try {
     const res = await fetch("http://localhost:3000/produtos");
@@ -471,7 +498,6 @@ async function carregarProdutos_Legumes() {
     const caixaLegumes = document.getElementById("caixaaa");
     caixaLegumes.innerHTML = "";
 
-    // categoria 2 = legumes
     const legumes = produtos.filter(p => p.categoria === 2);
 
     legumes.forEach(produto => {
@@ -488,6 +514,10 @@ async function carregarProdutos_Legumes() {
         </button>
       `;
 
+      box.querySelector(".botaozinho").addEventListener("click", () => {
+        adicionarAoCarrinho(produto);
+      });
+
       caixaLegumes.appendChild(box);
     });
 
@@ -497,15 +527,15 @@ async function carregarProdutos_Legumes() {
 }
 
 
- async function carregarProdutos_Laticinios() {
+// ========================= LATICÍNIOS =========================
+async function carregarProdutos_Laticinios() {
   try {
     const res = await fetch("http://localhost:3000/produtos");
     const produtos = await res.json();
 
     const caixaLaticinios = document.getElementById("caixa");
-    caixaLaticinios.innerHTML = ""; // limpa qualquer conteúdo anterior
+    caixaLaticinios.innerHTML = "";
 
-    // garante que compara número com número
     const laticinios = produtos.filter(p => Number(p.categoria) === 3);
 
     laticinios.forEach(produto => {
@@ -513,7 +543,7 @@ async function carregarProdutos_Legumes() {
       box.className = "box";
 
       box.innerHTML = `
-        <img src="/imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
         <h4>Nome: ${produto.nome}</h4>
         <p>Descrição: ${produto.descricao}</p>
         <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
@@ -522,7 +552,10 @@ async function carregarProdutos_Legumes() {
         </button>
       `;
 
-      // aqui o nome certo:
+      box.querySelector(".botaozinho").addEventListener("click", () => {
+        adicionarAoCarrinho(produto);
+      });
+
       caixaLaticinios.appendChild(box);
     });
 
@@ -532,10 +565,11 @@ async function carregarProdutos_Legumes() {
 }
 
 
-    window.onload = () => {
-  carregarProdutos();          // frutas
-  carregarProdutos_Legumes();  // legumes
-  carregarProdutos_Laticinios(); // laticínios
+// ========================= INICIALIZAÇÃO =========================
+window.onload = () => {
+  carregarProdutos();          
+  carregarProdutos_Legumes();  
+  carregarProdutos_Laticinios(); 
 };
 
   </script>
@@ -561,9 +595,9 @@ document.querySelectorAll(".prev, .next").forEach(botao => {
     const caixa = document.getElementById(targetId);
 
     if (caixa) {
-      const card = caixa.querySelector(".box"); // pega um card como referência
+      const card = caixa.querySelector(".box"); 
       if (card) {
-        const deslocamento = card.offsetWidth + 20; // largura + gap
+        const deslocamento = card.offsetWidth + 20; 
         caixa.scrollBy({
           left: botao.classList.contains("next") ? deslocamento : -deslocamento,
           behavior: "smooth"
@@ -612,7 +646,13 @@ document.querySelectorAll(".prev, .next").forEach(botao => {
 });
 
 
-    
+   
+   
+
+  
+
+
+   
 
         
   </script>
