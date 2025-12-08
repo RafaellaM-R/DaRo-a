@@ -341,7 +341,7 @@
     <div class="search-containerr">
       <span class="material-icons search-btn">search</span>
 
-      <input type="text" class="search-input" placeholder="Pesquisar...">
+      <input type="text" class="search-input" placeholder="Pesquisar..."  data-categoria="3">
     </div>
 
     </div>
@@ -363,7 +363,7 @@
 
     <div class="search-containerr">
       <span class="material-icons search-btn">search</span>
-      <input type="text" class="search-input" placeholder="Pesquisar...">
+      <input type="text" class="search-input" placeholder="Pesquisar..."  data-categoria="1">
     </div>
 
     </div>
@@ -387,7 +387,7 @@
 
     <div class="search-containerr">
       <span class="material-icons search-btn">search</span>
-      <input type="text" class="search-input" placeholder="Pesquisar...">
+      <input type="text" class="search-input" placeholder="Pesquisar..." data-categoria="2">
     </div>
 
     </div>
@@ -416,7 +416,7 @@
       <div class="links">
         <ul>
           <li><a href="sobre.html">Sobre nós</a></li>
-          <li>Contato</li>
+          <li><a href="falaComigo.html">Contato</a></li>
           <li>Política de Privacidade</li>
           <li>Termos de Uso</li>
           <li>Ajuda</li>
@@ -451,132 +451,11 @@ function adicionarAoCarrinho(produto) {
 
 
 
-async function carregarProdutos() {
-  try {
-    const res = await fetch("http://localhost:3000/produtos");
-    const produtos = await res.json();
-
-    const caixaFrutas = document.getElementById("caixaa");
-    caixaFrutas.innerHTML = "";
-
-    const frutas = produtos.filter(p => p.categoria === 1);
-
-    frutas.forEach(produto => {
-      const box = document.createElement("div");
-      box.className = "box";
-
-      box.innerHTML = `
-        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
-        <h4>Nome: ${produto.nome}</h4>
-        <p>Descrição: ${produto.descricao}</p>
-        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-        <button class="botaozinho">
-          <i class="fas fa-cart-plus"></i>
-        </button>
-      `;
-
-      // quando clicar no botão, adiciona ao carrinho
-      box.querySelector(".botaozinho").addEventListener("click", () => {
-        adicionarAoCarrinho(produto);
-      });
-
-      caixaFrutas.appendChild(box);
-    });
-
-  } catch (err) {
-    console.error("Erro ao carregar produtos:", err);
-  }
-}
-
-
-// ========================= LEGUMES =========================
-async function carregarProdutos_Legumes() {
-  try {
-    const res = await fetch("http://localhost:3000/produtos");
-    const produtos = await res.json();
-
-    const caixaLegumes = document.getElementById("caixaaa");
-    caixaLegumes.innerHTML = "";
-
-    const legumes = produtos.filter(p => p.categoria === 2);
-
-    legumes.forEach(produto => {
-      const box = document.createElement("div");
-      box.className = "box";
-
-      box.innerHTML = `
-        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
-        <h4>Nome: ${produto.nome}</h4>
-        <p>Descrição: ${produto.descricao}</p>
-        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-        <button class="botaozinho">
-          <i class="fas fa-cart-plus"></i>
-        </button>
-      `;
-
-      box.querySelector(".botaozinho").addEventListener("click", () => {
-        adicionarAoCarrinho(produto);
-      });
-
-      caixaLegumes.appendChild(box);
-    });
-
-  } catch (err) {
-    console.error("Erro ao carregar produtos:", err);
-  }
-}
-
-
-// ========================= LATICÍNIOS =========================
-async function carregarProdutos_Laticinios() {
-  try {
-    const res = await fetch("http://localhost:3000/produtos");
-    const produtos = await res.json();
-
-    const caixaLaticinios = document.getElementById("caixa");
-    caixaLaticinios.innerHTML = "";
-
-    const laticinios = produtos.filter(p => Number(p.categoria) === 3);
-
-    laticinios.forEach(produto => {
-      const box = document.createElement("div");
-      box.className = "box";
-
-      box.innerHTML = `
-        <img src="imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
-        <h4>Nome: ${produto.nome}</h4>
-        <p>Descrição: ${produto.descricao}</p>
-        <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
-        <button class="botaozinho">
-          <i class="fas fa-cart-plus"></i>
-        </button>
-      `;
-
-      box.querySelector(".botaozinho").addEventListener("click", () => {
-        adicionarAoCarrinho(produto);
-      });
-
-      caixaLaticinios.appendChild(box);
-    });
-
-  } catch (err) {
-    console.error("Erro ao carregar produtos:", err);
-  }
-}
-
-
-// ========================= INICIALIZAÇÃO =========================
-window.onload = () => {
-  carregarProdutos();          
-  carregarProdutos_Legumes();  
-  carregarProdutos_Laticinios(); 
-};
-
   </script>
   
 
   <script>
-    // Seleciona todas as lupas e inputs
+  
 const btns = document.querySelectorAll(".search-btn");
 const inputs = document.querySelectorAll(".search-input");
 
@@ -589,23 +468,114 @@ btns.forEach((btn, index) => {
 });
 
 
-document.querySelectorAll(".prev, .next").forEach(botao => {
-  botao.addEventListener("click", () => {
-    const targetId = botao.getAttribute("data-target"); // pega o id do container
-    const caixa = document.getElementById(targetId);
 
-    if (caixa) {
-      const card = caixa.querySelector(".box"); 
-      if (card) {
-        const deslocamento = card.offsetWidth + 20; 
-        caixa.scrollBy({
-          left: botao.classList.contains("next") ? deslocamento : -deslocamento,
-          behavior: "smooth"
-        });
-      }
-    }
+
+async function pegarProdutosDoServidor() {
+  const resposta = await fetch("http://localhost:8081/produtos");
+  const produtos = await resposta.json();
+  return produtos;
+}
+
+
+function escolherCaixa(categoria) {
+  if (categoria === 1) {
+    return document.getElementById("caixaa"); // frutas
+  }
+
+  if (categoria === 2) {
+    return document.getElementById("caixaaa"); // legumes
+  }
+
+  return document.getElementById("caixa"); // laticínios
+}
+
+
+function criarProdutoNaTela(produto) {
+  const caixaProduto = document.createElement("div");
+  caixaProduto.className = "box";
+
+  const preco = produto.valor.toFixed(2);
+
+  caixaProduto.innerHTML = `
+    <img src="/imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+    <h4>Nome: ${produto.nome}</h4>
+    <p>Descrição: ${produto.descricao}</p>
+    <p>Preço: R$ ${preco}</p>
+    <button class="botaozinho"><i class="fas fa-cart-plus"></i></button>
+  `;
+
+  const botao = caixaProduto.querySelector(".botaozinho");
+  botao.addEventListener("click", function () {
+    adicionarAoCarrinho(produto);
   });
-});
+
+  return caixaProduto;
+}
+
+
+function mostrarProdutosNaTela(listaDeProdutos, categoria, caixa) {
+  caixa.innerHTML = "";
+
+  const produtosDaCategoria = listaDeProdutos.filter(function (produto) {
+    return produto.categoria === categoria;
+  });
+
+  if (produtosDaCategoria.length === 0) {
+    caixa.innerHTML = "<p>Nenhum produto encontrado.</p>";
+    return;
+  }
+
+  for (const produto of produtosDaCategoria) {
+    const elemento = criarProdutoNaTela(produto);
+    caixa.appendChild(elemento);
+  }
+}
+
+// faz a busca
+function procurarProduto(textoDigitado, listaDeProdutos, categoria, caixa) {
+  const texto = textoDigitado.trim().toLowerCase();
+
+  const produtosFiltrados = listaDeProdutos.filter(function (produto) {
+    const nome = produto.nome.toLowerCase();
+    const ehDaMesmaCategoria = produto.categoria === categoria;
+    const contemTexto = nome.includes(texto);
+    return ehDaMesmaCategoria && contemTexto;
+  });
+
+  mostrarProdutosNaTela(produtosFiltrados, categoria, caixa);
+}
+
+// quando a página inicia
+async function iniciarBusca() {
+  const todosOsProdutos = await pegarProdutosDoServidor();
+  const camposDeBusca = document.querySelectorAll(".search-input");
+
+  for (const campo of camposDeBusca) {
+    const categoria = Number(campo.dataset.categoria);
+    const caixa = escolherCaixa(categoria);
+
+    mostrarProdutosNaTela(todosOsProdutos, categoria, caixa);
+
+    campo.addEventListener("keydown", function (evento) {
+      if (evento.key === "Enter") {
+        evento.preventDefault();
+        const textoDigitado = campo.value;
+        procurarProduto(textoDigitado, todosOsProdutos, categoria, caixa);
+      }
+    });
+
+    const botaoLupa = campo.previousElementSibling;
+    botaoLupa.addEventListener("click", function () {
+      const textoDigitado = campo.value;
+      procurarProduto(textoDigitado, todosOsProdutos, categoria, caixa);
+    });
+  }
+}
+
+iniciarBusca();
+
+
+//botoes
 
 
 document.querySelectorAll(".prev, .next").forEach(botao => {
@@ -656,5 +626,8 @@ document.querySelectorAll(".prev, .next").forEach(botao => {
 
         
   </script>
+
+
+
 </body>
 </html>
