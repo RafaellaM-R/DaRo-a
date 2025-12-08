@@ -1,4 +1,4 @@
-console.log("🔥 Iniciando servidor...");
+console.log(" Iniciando servidor...");
 
 const express = require("express");
 const cors = require("cors");
@@ -27,4 +27,5 @@ app.use("/pedidos", pedidoRoutes);
 
 
 module.exports = app;
+
 
