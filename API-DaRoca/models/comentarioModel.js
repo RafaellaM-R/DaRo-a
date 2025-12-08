@@ -1,17 +1,30 @@
-const { sql, poolPromise } = require("../database/connection");
+const { conectaBD } = require("../config/db");
+
+async function inserirComentario({ comentario_texto, email_cliente }) {
+  const conexao = await conectaBD();
+
+  await conexao.query(`
+    INSERT INTO daroca.COMENTARIOS (comentario, data_comentario, email_cliente)
+    VALUES ('${comentario_texto}', GETDATE(), '${email_cliente}')
+  `);
+
+  await conexao.close();
+  return { mensagem: "Comentário inserido com sucesso!" };
+}
+
 
 async function listarComentarios() {
-  const pool = await poolPromise;
-  const result = await pool.request().query("SELECT * FROM daroca.comentarios");
+  const conexao = await conectaBD();
+
+ 
+  const result = await conexao.query(`
+    SELECT id_comentario, comentario, data_comentario, email_cliente
+    FROM daroca.COMENTARIOS
+    ORDER BY data_comentario DESC
+  `);
+
+  await conexao.close();
   return result.recordset;
 }
 
-async function inserirComentario(id_cliente, comentario) {
-  const pool = await poolPromise;
-  await pool.request()
-    .input("id_cliente", sql.Int, id_cliente)
-    .input("comentario", sql.VarChar(sql.MAX), comentario)
-    .query("INSERT INTO daroca.comentarios (id_cliente, comentario) VALUES (@id_cliente, @comentario)");
-}
-
-module.exports = { listarComentarios, inserirComentario };
+module.exports = { inserirComentario, listarComentarios };
