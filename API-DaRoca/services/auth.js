@@ -1,33 +1,39 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-// Segredo para assinar o token (mantenha em .env no futuro)
-const JWT_SECRET = "supersecreto123"; // troque por algo mais seguro
+const SECRET = process.env.SECRET;
 
-// Função para gerar o token
+
 function gerarToken(usuario) {
-  // O token pode conter dados do usuário, mas **não coloque senhas**
-  const payload = {
-    id: usuario.id,
-    nome: usuario.nome,
-    email: usuario.email
-  };
-
-  // Gera token com validade de 1 hora
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
-  return token;
+  return jwt.sign(
+    {
+      id: usuario.id_cliente,
+      nome: usuario.nome,
+      email: usuario.email,
+      role: usuario.role,
+    },
+    SECRET,
+    { expiresIn: "1h" } 
+  );
 }
 
-//  Função para verificar o token
-function verificarToken(token) {
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    return { valid: true, decoded };
-  } catch (err) {
-    return { valid: false, message: err.message };
-  }
+
+function autenticar(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader)
+    return res.status(401).json({ msg: "Token não fornecido" });
+
+  const header = authHeader.split(" ");
+  const token = header[1];
+  if (!token)
+    return res.status(401).json({ msg: "Token não fornecido" });
+
+  jwt.verify(token, SECRET, (err, user) => {
+    if (err)
+      return res.status(403).json({ msg: "Token inválido ou expirado" });
+    req.user = user;
+    next();
+  });
 }
 
-module.exports = {
-  gerarToken,
-  verificarToken
-};
+module.exports = { gerarToken, autenticar };
