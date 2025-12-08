@@ -1,12 +1,11 @@
-const { poolPromise } = require("../database/connection");
+const produtoModel = require("../models/Produto");
 
 async function listarProdutos(req, res) {
   try {
-    const pool = await poolPromise;
-    const result = await pool.request().query("SELECT * FROM daroca.produtos");
-    res.json(result.recordset);
+    const produtos = await produtoModel.listarProdutos();
+    res.json(produtos);
   } catch (err) {
-    console.error(err);
+    console.error("Erro ao buscar produtos:", err);
     res.status(500).send("Erro ao buscar produtos: " + err.message);
   }
 }
