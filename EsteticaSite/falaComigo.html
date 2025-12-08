@@ -3,25 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fale  Conosco</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+  <title>Fale Conosco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
   <header>
-    <div><img src="/imagens//ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div><img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
     <div>
       <ul id="lista">
         <li><a href="Projeto_paginaInicial.html">Home</a></li>
-         <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
         <li><a href="cadastro.html">Cadastrar</a></li>
-        
       </ul>
     </div>
     <div id="search-container">
@@ -33,39 +31,82 @@
 
   <h1 class="titulo">Sugestões</h1>
 
-  <!-- Card estilo catálogo -->
   <div class="card-contato">
     <h2>Fale Conosco</h2>
 
-    <form>
+    <form id="formComentario">
       <div class="linha">
-        <input type="text" placeholder="Nome">
-        <input type="text" placeholder="Sobrenome">
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="sobrenome" placeholder="Sobrenome" required>
       </div>
 
-      <input type="email" placeholder="Endereço de e-mail">
+      <input type="email" id="email" placeholder="Endereço de e-mail" required>
 
-      <textarea placeholder="Digite sua mensagem..."></textarea>
+      <textarea id="mensagem" placeholder="Digite sua mensagem..." required></textarea>
 
       <button type="submit">Enviar</button>
     </form>
 
-   
-
-
-
+    <h3>Comentários enviados</h3>
+    <div id="listaComentarios"></div>
   </div>
- 
 
   <script>
-        // Botão de busca
+    // Botão de busca
     const btn = document.getElementById("search-btn");
     const input = document.getElementById("search-input");
     btn.addEventListener("click", () => {
       input.classList.toggle("active");
       input.focus();
     });
-    </script>
 
+    // Formulário de comentários
+    const form = document.getElementById("formComentario");
+    const lista = document.getElementById("listaComentarios");
+
+    async function carregarComentarios() {
+      try {
+        const res = await fetch("http://localhost:8081/comentarios");
+        const comentarios = await res.json();
+        lista.innerHTML = comentarios.map(c => `
+          <p><b>${c.email_cliente}:</b> ${c.comentario}</p>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+        lista.innerHTML = "<p>Erro ao carregar comentários</p>";
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const mensagem = document.getElementById("mensagem").value;
+
+      try {
+        const res = await fetch("http://localhost:8081/comentarios", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email_cliente: email, comentario: mensagem })
+
+
+        });
+
+        const data = await res.json();
+        alert(data.mensagem);
+
+        if (res.ok) {
+          form.reset();
+          carregarComentarios(); // Atualiza lista após enviar
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao enviar comentário");
+      }
+    });
+
+    // Carrega comentários ao abrir a página
+    carregarComentarios();
+  </script>
 </body>
 </html>
