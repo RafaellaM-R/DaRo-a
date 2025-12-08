@@ -311,6 +311,42 @@
     }
 
     .CardInformações img { width: 90px; }
+
+
+    #frequencia{
+      border-radius: 12px;
+      background-color: #00000092;
+      color: white;
+      padding: 12px;
+      width: 200px;
+    }
+    #frete{
+      
+      padding: 15px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background-color: #00000081;
+      color:white
+
+    }
+
+    
+
+   .pedido{
+    border-radius: 12px;
+  background-color: #00000092;
+  color: white;
+  padding: 12px;
+   }
+   #listadepedidos button{
+  padding: 1px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background-color: #00000081;
+      color:white;
+      width: 250px;
+      
+}
   </style>
 </head>
 <body>
@@ -321,6 +357,7 @@
         <li><a href="Projeto_paginaInicial.html">Home</a></li>
          <li><a href="sobre.html">Sobre</a></li>
         <li><a href="cadastro.html">Cadastrar</a></li>
+        <li><a href="receitas.html">receitas</a></li>
         
       </ul>
     </div>
@@ -339,45 +376,27 @@
   <h2>Meu carrinho</h2>
   <div id="container-flex">
     <div id="caixa">
-      <p id="caixaa">meu carrinho (3)</p>
+  <p id="caixaa">meu carrinho</p>
 
-      <div class="box">
-        <img src="imagem/produto/queijo.png" alt="Produto 1">
-        <h5>Produto 1</h5>
-        <p>Preço: R$ 10,00</p>
-        <button class="menos">-</button>
-        <span class="quantidade">1</span>
-        <button class="mais">+</button>
-      </div>
+  <!-- produtos renderizados dinamicamente -->
+  <div id="produtos-carrinho"></div>
 
-      <div class="box">
-        <img src="imagem/produto/queijo.png" alt="Produto 2">
-        <h5>Produto 2</h5>
-        <p>Preço: R$ 15,00</p>
-        <button class="menos">-</button>
-        <span class="quantidade">1</span>
-        <button class="mais">+</button>
-      </div>
+  <!-- Estatísticas -->
+  <div id="estatisticas">
+    <h4>📊 Dados estatísticos</h4>
+    <p>Valor total do carrinho: <span id="valor-total">R$ 00,00</span></p>
+    <p>Total de produtos: <span id="total-produtos">0</span></p>
+    <p>Valor médio por produto: <span id="media-produto">R$ 00,00</span></p>
+    <p>Maior valor do carrinho: <span id="maior-produto">R$ 00,00</span></p>
+  </div>
 
-      <div class="box">
-        <img src="imagem/produto/queijo.png" alt="Produto 3">
-        <h5>Produto 3</h5>
-        <p>Preço: R$ 20,00</p>
-        <button class="menos">-</button>
-        <span class="quantidade">1</span>
-        <button class="mais">+</button>
-      </div>
+  <a href="#">limpar o carrinho</a>
+  <div id="listadepedidos">
+    <button  id="listaDepedidos" onclick="listaDePedidos()"> Deseja ver seu pedido? Clique aqui!</button>
+  </div>
+  <div id="resultadoPedidos"></div> <!-- onde a lista será exibida -->
+</div>
 
-      <!-- Estatísticas -->
-      <div id="estatisticas">
-        <h4>📊 Dados estatísticos</h4>
-        <p>Valor total do carrinho: <span id="valor-total">R$ 00,00</span></p>
-        <p>Total de produtos: <span id="total-produtos">3</span></p>
-        <p>Valor médio por produto: <span id="media-produto">R$ 00,00</span></p>
-        <p>Maior valor do carrinho: <span id="maior-produto">R$ 00,00</span></p>
-      </div>
-      <a href="#">limpar o carrinho</a>
-    </div>
 
     <div id="lado-direito">
       <div id="outraCaixa">
@@ -389,7 +408,8 @@
         <p>Desconto do cupom</p>
         <div id="total">
           <p>Total</p>
-          <button>Processo de checagem</button>
+          <button onclick="finalizarPedido()">Finalizar pedido</button>
+
         </div>
       </div>
 
@@ -400,31 +420,37 @@
       </div>
 
       <h6>Frequência de entrega</h6>
-      <div id="botao">
-        <button>Semanal</button>
-        <button>Quinzenal</button>
-        <button>Mensal</button>
-      </div>
+      <select id="frequencia">
+  <option value="semanal">Semanal</option>
+  <option value="quinzenal">Quinzenal</option>
+  <option value="mensal">Mensal</option>
+</select>
+<div id="frete">
+
+
+<p>Frete: <span id="valor-frete">R$ 0,00</span></p>
+<p>Total a pagar: <span id="total-final">R$ 0,00</span></p>
+</div>
     </div>
   </div>
 
   <div id="Junçaodecards">
     <div class="CardInformações">
-      <img src="imagens/caixa.png">
+      <img src="/imagens/caixa.png">
       <div>
         <h4>Frete grátis</h4>
         <p>Frete grátis para pedidos acima de R$180,00</p>
       </div>
     </div>
     <div class="CardInformações">
-      <img src="imagens/outracaixa.png">
+      <img src="/imagens/outracaixa.png">
       <div>
         <h4>Pagamento flexível</h4>
         <p>Várias opções de pagamento seguras</p>
       </div>
     </div>
     <div class="CardInformações">
-      <img src="imagens/apoio.png">
+      <img src="/imagens/apoio.png">
       <div>
         <h4>24x7</h4>
         <p>Nós ajudamos online todos os dias</p>
@@ -448,7 +474,7 @@
       <div class="links">
         <ul>
           <li><a href="sobre.html">Sobre nós</a></li>
-          <li>Contato</li>
+          <li><a href="falaComigo.html">Contato</a></li>
           <li>Política de Privacidade</li>
           <li>Termos de Uso</li>
           <li>Ajuda</li>
@@ -462,63 +488,336 @@
 
   <script>
 
-    
-        // Botão de busca
-    const btn = document.getElementById("search-btn");
-    const input = document.getElementById("search-input");
-    btn.addEventListener("click", () => {
-      input.classList.toggle("active");
-      input.focus();
-    });
-    
-    function atualizarEstatisticas() {
-      const boxes = document.querySelectorAll(".box");
-      let total = 0;
-      let valores = [];
+  
+async function listaDePedidos() {
+  const idCliente = localStorage.getItem("id_cliente");
 
-      boxes.forEach(box => {
-        let quantidade = parseInt(box.querySelector(".quantidade").textContent);
-        let precoTexto = box.querySelector("p").textContent.replace("Preço: R$ ", "").replace(",", ".");
-        let preco = parseFloat(precoTexto) || 0;
+  if (!idCliente) {
+    alert("Você precisa estar logado!");
+    return;
+  }
 
-        total += quantidade;
-        valores.push(preco * quantidade);
-      });
+  try {
+    const response = await fetch(`http://localhost:8081/pedidos/cliente/${idCliente}`);
 
-      let soma = valores.reduce((a, b) => a + b, 0);
+    const Pedidosmandadosdosistema = await response.json();
 
-      document.getElementById("total-produtos").textContent = total;
-      document.getElementById("media-produto").textContent = "R$ " +
-        (valores.length && total > 0 ? (soma / total).toFixed(2) : "0,00");
-      document.getElementById("maior-produto").textContent = "R$ " +
-        (valores.length ? Math.max(...valores).toFixed(2) : "0,00");
-      document.getElementById("valor-total").textContent = "R$ " + soma.toFixed(2);
+    console.log("Pedidos recebidos:", Pedidosmandadosdosistema);
+
+    if (Pedidosmandadosdosistema.length === 0) {
+      alert("Você ainda não tem pedidos.");
+      return;
     }
 
-    const botoesMais = document.querySelectorAll(".mais");
-    const botoesMenos = document.querySelectorAll(".menos");
+    
+    const div = document.getElementById("listadepedidos");
+    div.innerHTML = "<h3>Meus pedidos:</h3>";
 
-    atualizarEstatisticas();
+    Pedidosmandadosdosistema.forEach(p => {
+      div.innerHTML += `
+        <div class="pedido">
+          <img src="../imagens_produtoss/${p.imagem}" 
+           alt="Imagem do produto" 
+           style="width:120px; border-radius:10px; margin-bottom:10px;">
 
-    botoesMais.forEach(botao => {
-      botao.addEventListener("click", () => {
-        let quantidade = botao.previousElementSibling;
-        let valor = parseInt(quantidade.textContent);
-        quantidade.textContent = valor + 1;
-        atualizarEstatisticas();
-      });
+          <p><b>Data:</b> ${p.data_pedido}</p>
+          <p><b>Status:</b> ${p.status}</p>
+          <p><b>Produto:</b> ${p.nome_produto}</p>
+          <p><b>Quantidade:</b> ${p.quantidade}</p>
+          <p><b>Preço:</b> R$ ${p.preco_produto}</p>
+          <hr>
+        </div>
+      `;
     });
 
-    botoesMenos.forEach(botao => {
-      botao.addEventListener("click", () => {
-        let quantidade = botao.nextElementSibling;
-        let valor = parseInt(quantidade.textContent);
-        if (valor > 1) {
-          quantidade.textContent = valor - 1;
-          atualizarEstatisticas();
-        }
-      });
+  } catch (erro) {
+    console.error("Erro ao buscar pedidos:", erro);
+    alert("Erro ao buscar pedidos.");
+  }
+}
+
+
+
+async function finalizarPedido() {
+  const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+  const frequencia = document.getElementById("frequencia").value;
+
+  // 
+  let frete = parseFloat(
+    document.getElementById("valor-frete").textContent
+      .replace("R$", "")
+      .replace(",", ".")
+      .trim()
+  );
+
+  frete = isNaN(frete) ? 0 : frete;
+
+  const valorTotal = parseFloat(
+    document.getElementById("total-final").textContent
+      .replace("R$", "")
+      .replace(",", ".")
+  );
+
+  const idCliente = Number(localStorage.getItem("id_cliente"));
+
+  if (!idCliente) return alert("Nenhum cliente logado!");
+  if (!frequencia) return alert("Selecione uma frequência!");
+  if (carrinho.length === 0) return alert("O carrinho está vazio!");
+
+  const itensFormatados = carrinho.map(item => ({
+    id_produto: item.id,
+    quantidade: item.quantidade,
+  }));
+
+  console.log("Itens formatados:", itensFormatados);
+
+  const pedido = {
+    id_cliente: idCliente,
+    valor_total: valorTotal,
+    status: "Pendente",
+    frequencia,
+    frete,
+    itens: itensFormatados
+  };
+
+  console.log("Pedido enviado:", pedido);
+
+  try {
+    const resposta = await fetch("http://localhost:8081/pedidos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pedido)
     });
+
+    if (!resposta.ok) {
+      const erro = await resposta.text();
+      console.error("Erro do backend:", erro);
+      return alert("Erro ao criar pedido!");
+    }
+
+    const dados = await resposta.json();
+    alert("Pedido criado com sucesso! ID: " + dados.idPedido);
+
+    localStorage.removeItem("carrinho");
+
+  } catch (erro) {
+    console.error("Erro ao conectar com o servidor:", erro);
+    alert("Falha de comunicação com o servidor");
+  }
+}
+
+
+    function carregarCarrinho() {
+  
+  const produtosDiv = document.getElementById("produtos-carrinho");
+
+ 
+  const produtosCarrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+  
+  produtosDiv.innerHTML = "";
+
+  
+  if (produtosCarrinho.length === 0) {
+    produtosDiv.innerHTML = "<p>Seu carrinho está vazio </p>";
+
+    document.getElementById("valor-total").textContent = "R$ 0,00";
+    document.getElementById("total-produtos").textContent = "0";
+    document.getElementById("media-produto").textContent = "R$ 0,00";
+    document.getElementById("maior-produto").textContent = "R$ 0,00";
+    return;
+  }
+
+  
+  produtosCarrinho.forEach((produto, index) => {
+    
+    const box = document.createElement("div");
+    box.className = "box";
+
+   
+    box.innerHTML = `
+      <img src="../imagens_produtoss/${produto.imagem}" alt="${produto.nome}">
+      <h5>${produto.nome}</h5>
+      <p>Preço: R$ ${produto.valor.toFixed(2)}</p>
+      <button class="menos">-</button>
+      <span class="quantidade">${produto.quantidade}</span>
+      <button class="mais">+</button>
+      <button class="remover" title="Remover produto">
+        <i class="fas fa-trash"></i>
+      </button>
+    `;
+
+    box.querySelector(".mais").addEventListener("click", () => alterarQuantidade(index, 1));
+    box.querySelector(".menos").addEventListener("click", () => alterarQuantidade(index, -1));
+    box.querySelector(".remover").addEventListener("click", () => removerProduto(index));
+
+    produtosDiv.appendChild(box);
+  });
+
+  atualizarEstatisticas();
+}
+
+
+
+
+ function alterarQuantidade(posicao, alterarPor) {
+  
+  let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+  
+  let produto = carrinho[posicao];
+
+  
+  if (!produto) return;
+
+  // Altera a quantidade (pode ser +1 ou -1)
+  produto.quantidade = produto.quantidade + alterarPor;
+
+  // Garante que a quantidade mínima seja 1
+  if (produto.quantidade < 1) {
+    produto.quantidade = 1;
+  }
+
+ 
+  carrinho[posicao] = produto;
+
+
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+  
+  carregarCarrinho();
+
+
+}
+
+
+
+
+function removerProduto(posicao) {
+  
+  let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+  carrinho.splice(posicao, 1);
+ 
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  carregarCarrinho();
+}
+
+
+
+function limparCarrinho() {
+  
+  localStorage.removeItem("carrinho");
+
+ 
+  carregarCarrinho();
+}
+
+
+ function atualizarEstatisticas() {
+
+  const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+ 
+  if (carrinho.length === 0) {
+    document.getElementById("valor-total").textContent = "R$ 0,00";
+    document.getElementById("total-produtos").textContent = "0";
+    document.getElementById("media-produto").textContent = "R$ 0,00";
+    document.getElementById("maior-produto").textContent = "R$ 0,00";
+    return;
+  }
+
+ 
+  let totalProdutos = 0;
+  let soma = 0;
+  let maior = 0;
+
+
+  for (let produto of carrinho) {
+    let valorTotalDoProduto = produto.valor * produto.quantidade;
+
+    totalProdutos += produto.quantidade; // soma as quantidades
+    soma += valorTotalDoProduto;         // soma os valores
+    if (valorTotalDoProduto > maior) {   // pega o maior valor
+      maior = valorTotalDoProduto;
+    }
+  }
+
+ 
+  let media = soma / totalProdutos;
+
+  
+  document.getElementById("valor-total").textContent = "R$ " + soma.toFixed(2);
+  document.getElementById("total-produtos").textContent = totalProdutos;
+  document.getElementById("media-produto").textContent = "R$ " + media.toFixed(2);
+  document.getElementById("maior-produto").textContent = "R$ " + maior.toFixed(2);
+}
+
+
+ 
+const linkLimpar = document.querySelector('a[href="#"]');
+
+// Quando o link for clicado...
+linkLimpar.addEventListener("click", function(evento) {
+  evento.preventDefault(); // Evita que a página recarregue
+
+ 
+  const querLimpar = confirm("Tem certeza que deseja limpar o carrinho?");
+
+
+  if (querLimpar) {
+    limparCarrinho();
+  }
+});
+
+
+
+
+const botaoBusca = document.getElementById("search-btn");
+const campoBusca = document.getElementById("search-input");
+
+// Quando o botão for clicado...
+botaoBusca.addEventListener("click", function() {
+  // Mostra ou esconde o campo de busca
+  campoBusca.classList.toggle("active");
+
+  // Coloca o foco dentro do campo pra digitar direto
+  campoBusca.focus();
+});
+
+
+
+
+carregarCarrinho();
+
+
+
+  function calcularFrete() {
+ 
+  const frequencia = document.getElementById("frequencia").value;
+
+
+  const valorTotal = parseFloat(
+    document.getElementById("valor-total").textContent
+      .replace("R$", "")
+      .replace(",", ".")
+  );
+
+  let frete = 0;
+  if (frequencia === "semanal") frete = 10;
+  else if (frequencia === "quinzenal") frete = 20;
+  else if (frequencia === "mensal") frete = 30;
+ 
+  const totalFinal = valorTotal + frete;
+  document.getElementById("valor-frete").textContent = "R$ " + frete.toFixed(2);
+  document.getElementById("total-final").textContent = "R$ " + totalFinal.toFixed(2);
+}
+// Atualiza o frete automaticamente quando a frequência muda
+document.getElementById("frequencia").addEventListener("change", calcularFrete);
+calcularFrete();
+
+
+
+
   </script>
 </body>
 </html>
