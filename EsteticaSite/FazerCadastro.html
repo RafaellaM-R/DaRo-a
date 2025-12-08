@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fazer cadastro - DaRoça </title>
+  <title>Fazer cadastro - DaRoça</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -16,13 +22,92 @@
     }
 
     body {
-      background: url('./imagens/imagemdoFazendoCadastro.jpg') no-repeat center center fixed;
+      background: url('../imagens/imagemdoFazendoCadastro.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       backdrop-filter: blur(4px);
+      padding-top: 100px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #00000041;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
+
+    header img {
+      width: 100px;
+    }
+
+    #lista {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    #lista li {
+      margin: 0 13px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    header li > a {
+      text-decoration: none;
+      color: rgb(40, 61, 14);
+      background-color: rgba(255, 255, 255, 0.529);
+      padding: 6px 10px;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    header li > a:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .material-icons {
+      font-size: 28px;
+      color: rgb(251, 253, 250);
+      cursor: pointer;
+    }
+
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-input {
+      width: 0;
+      opacity: 0;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-input.active {
+      width: 200px;
+      opacity: 1;
     }
 
     .card {
@@ -84,12 +169,6 @@
       transform: scale(1.05);
     }
 
-    .footer {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #2d6a4f;
-    }
-
     a {
       color: #2d6a4f;
       text-decoration: none;
@@ -115,8 +194,26 @@
 </head>
 
 <body>
+  <header>
+    <div><img src="/imagens/ChatGPT Image 19 de ago. de 2025, 20_44_53.png" alt="Logo"></div>
+    <div>
+      <ul id="lista">
+        <li><a href="Projeto_paginaInicial.html">Home</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="cadastro.html">Cadastrar</a></li>
+        <li><a href="#catalogooo">Catálogo</a></li>
+        <li><a href="receitas.html">Receitas</a></li>
+      </ul>
+    </div>
+    <div class="search-container">
+      <span class="material-icons search-btn">search</span>
+      <input type="text" class="search-input" placeholder="Pesquisar...">
+      <a href="carrinho.html"><span class="material-icons">shopping_cart</span></a>
+    </div>
+  </header>
+
   <div class="card">
-    <h2>Crie sua conta </h2>
+    <h2>Crie sua conta</h2>
     <form id="formCadastro">
       <label>Nome:</label>
       <input type="text" id="nome" required />
@@ -132,34 +229,67 @@
 
       <button type="submit">Cadastrar</button>
     </form>
-    <div class="footer">
-      Já tem uma conta? <a href="login.html">Entrar </a>
-    </div>
   </div>
 
   <script>
     document.getElementById("formCadastro").addEventListener("submit", async (e) => {
-      e.preventDefault();
+  e.preventDefault();
 
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
-      const confirmarSenha = document.getElementById("confirmarSenha").value;
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
+  const confirmarSenha = document.getElementById("confirmarSenha").value;
 
-      if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem!");
-        return;
-      }
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem!");
+    return;
+  }
 
-      const resposta = await fetch("http://localhost:3000/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, senha })
-      });
-
-      const dados = await resposta.json();
-      alert(dados.message);
+  try {
+    const resposta = await fetch("http://localhost:8081/clientes/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({  email, senha })
     });
+
+    const dados = await resposta.json();
+
+    if (resposta.ok) {
+      alert(`Bem-vindo(a), ${dados.cliente?.nome || "usuário"}!`);
+      
+
+
+      localStorage.setItem("token", dados.token);
+      localStorage.setItem("id_cliente", dados.cliente.id_cliente);
+      localStorage.setItem("nome_cliente", dados.cliente.nome);
+
+      
+
+      
+
+      window.location.href = "projeto_paginaInicial.html";
+    } else {
+      alert(dados.erro || dados.mensagem || "Erro no cadastro. Tente novamente.");
+    }
+
+  } catch (erro) {
+    console.error("Erro no fetch de cadastro:", erro);
+    alert("Erro ao conectar com o servidor. Tente novamente mais tarde.");
+  }
+});
+
+
+    // animação da barra de pesquisa
+    const searchBtn = document.querySelector('.search-btn');
+    const searchInput = document.querySelector('.search-input');
+    searchBtn.addEventListener('click', () => {
+      searchInput.classList.toggle('active');
+      if (searchInput.classList.contains('active')) {
+        searchInput.focus();
+      }
+    });
+
+
   </script>
 </body>
 </html>
