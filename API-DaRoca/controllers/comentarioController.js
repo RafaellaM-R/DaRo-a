@@ -1,22 +1,36 @@
-const { listarComentarios, inserirComentario } = require("../models/comentarioModel");
+const comentarioModel = require("../models/comentarioModel");
 
-async function getComentarios(req, res) {
+
+async function criarComentario(req, res) {
   try {
-    const comentarios = await listarComentarios();
+    const { comentario, email_cliente } = req.body;
+
+    if (!comentario || !email_cliente) {
+      return res.status(400).json({ erro: "Comentário e email são obrigatórios!" });
+    }
+
+    const novoComentario = {
+      comentario_texto: comentario,
+      email_cliente,
+    };
+
+    const resultado = await comentarioModel.inserirComentario(novoComentario);
+    res.status(201).json(resultado);
+  } catch (err) {
+    console.error("Erro ao inserir comentário:", err);
+    res.status(500).json({ erro: "Erro ao inserir comentário." });
+  }
+}
+
+
+async function listarComentarios(req, res) {
+  try {
+    const comentarios = await comentarioModel.listarComentarios();
     res.json(comentarios);
   } catch (err) {
-    res.status(500).send("Erro ao buscar comentários: " + err.message);
+    console.error("Erro ao listar comentários:", err);
+    res.status(500).json({ erro: "Erro ao listar comentários." });
   }
 }
 
-async function postComentario(req, res) {
-  const { id_cliente, comentario } = req.body;
-  try {
-    await inserirComentario(id_cliente, comentario);
-    res.status(201).send("Comentário adicionado com sucesso!");
-  } catch (err) {
-    res.status(500).send("Erro ao adicionar comentário: " + err.message);
-  }
-}
-
-module.exports = { getComentarios, postComentario };
+module.exports = { criarComentario, listarComentarios };
