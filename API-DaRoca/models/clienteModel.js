@@ -2,7 +2,7 @@ const { conectaBD } = require("../config/db");
 const bcrypt = require("bcrypt");
 const { gerarToken } = require("../services/auth");
 
-// ======================= LOGIN =======================
+
 async function login(email, senha) {
   const conexao = await conectaBD();
 
@@ -81,3 +81,4 @@ async function inserir(cliente) {
 }
 
 module.exports = { login, inserir };
+
